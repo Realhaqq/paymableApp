@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ng.paymable">
+
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:icon="@drawable/iconp"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/iconp"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!--        <activity android:name="ng.paymable.SplashActivity" />-->
+<!--        <activity android:name=".MainActivity"/>-->
+
+        <activity android:name="ng.paymable.SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="ng.paymable.WelcomeActivity" />
+        <activity android:name="ng.paymable.LoginActivity" />
+        <activity android:name="ng.paymable.SignupActivity" />
+        <activity android:name="ng.paymable.MobileVerificationActivity" />
+        <activity android:name="ng.paymable.FingerPrintActivity" />
+        <activity android:name="ng.paymable.OtpActivity" />
+        <activity android:name="ng.paymable.SecureLoginActivity" />
+        <activity android:name="ng.paymable.ScanAndPayActivity" />
+        <activity android:name="ng.paymable.HomePay2Activity" />
+        <activity android:name="ng.paymable.OfferActivity" />
+        <activity android:name="ng.paymable.MyTransactionActivity" />
+        <activity android:name="ng.paymable.AddNewCardActivity">
+
+
+        </activity>
+        <activity android:name="ng.paymable.AddWalletBalanceActivity" />
+        <activity android:name="ng.paymable.SaveCardsActivity"></activity>
+        <activity android:name="ng.paymable.MyAccountActivity"></activity>
+        <activity android:name="ng.paymable.TransactionDetailsActivity">
+
+        </activity>
+
+
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+    </application>
+
+</manifest>

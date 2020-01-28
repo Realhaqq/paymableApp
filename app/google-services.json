@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "627964682762",
+    "firebase_url": "https://paymable-1cc0f.firebaseio.com",
+    "project_id": "paymable-1cc0f",
+    "storage_bucket": "paymable-1cc0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627964682762:android:b716087c517e3bbdf4f5f3",
+        "android_client_info": {
+          "package_name": "ng.paymable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627964682762-1j1tvp5co2n912veadedbr64o410qh4n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ng.paymable",
+            "certificate_hash": "5d271cd78355c52f1d2b3fddb6ea77c07a472fc9"
+          }
+        },
+        {
+          "client_id": "627964682762-agai4ovlvlv05pnl4eff1vehkf5ts3ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYGdxKUrWorqOpRpwVbZkh8tSD8jXPpOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627964682762-agai4ovlvlv05pnl4eff1vehkf5ts3ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

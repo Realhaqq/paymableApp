@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:icon="@drawable/data_card"
+        android:id="@+id/home"
+        android:iconTintMode="@color/colorPrimary"
+        android:iconTint="@color/colorPrimary"
+        android:title="Home"
+        />
+
+    <item
+        android:icon="@drawable/offers"
+        android:id="@+id/search"
+        android:iconTint="@color/colorPrimary"
+        android:iconTintMode="@color/colorPrimary"
+
+        android:title="Search"
+
+        />
+
+
+    <item
+        android:icon="@drawable/scan_and_pay"
+        android:id="@+id/tickets"
+        android:iconTint="@color/colorPrimary"
+        android:title="Tickets"
+
+        />
+
+
+
+    <item
+        android:icon="@drawable/transactions"
+        android:id="@+id/transactions"
+        android:iconTint="@color/colorPrimary"
+        android:title="Transactions"
+
+        />
+
+
+    <item
+        android:icon="@drawable/account"
+        android:id="@+id/profile"
+        android:iconTint="@color/colorPrimary"
+        android:title="Account"
+
+        />
+
+</menu>
