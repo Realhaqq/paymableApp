@@ -27,6 +27,7 @@ public class ViewDialog {
         //...that's the layout i told you will inflate later
         dialog.setContentView(R.layout.loader);
 
+//        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
         //...initialize the imageView form infalted layout
         ImageView gifImageView = dialog.findViewById(R.id.custom_loading_imageView);
 

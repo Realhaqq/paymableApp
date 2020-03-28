@@ -19,6 +19,10 @@ import Adapters.GridAdapter;
 import Adapters.ProfilePagerAdapter_walkthrough_01;
 import Models.GridModel;
 import me.relex.circleindicator.CircleIndicator;
+import ng.paymable.ActivityAirtime;
+import ng.paymable.ActivityData;
+import ng.paymable.ActivityElectricity;
+import ng.paymable.ActivityTv;
 import ng.paymable.AddNewCardActivity;
 import ng.paymable.AddWalletBalanceActivity;
 import ng.paymable.HomePay2Activity;
@@ -34,7 +38,7 @@ public class HomeFragment extends Fragment {
     private ViewPager viewPager;
     private ProfilePagerAdapter_walkthrough_01 profilePagerAdapterWalkthrough01;
 
-    LinearLayout card_wallet;
+    LinearLayout card_wallet, card_airtime, card_data, card_elect, card_tv;
 
 
     private ArrayList<GridModel> homeListModelClassArrayList1;
@@ -68,6 +72,39 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddWalletBalanceActivity.class);
+                startActivity(intent);
+            }
+        });
+        card_airtime = view.findViewById(R.id.card_airtime);
+        card_airtime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ActivityAirtime.class);
+                startActivity(intent);
+            }
+        });
+        card_data = view.findViewById(R.id.card_data);
+        card_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ActivityData.class);
+                startActivity(intent);
+            }
+        });
+        card_elect = view.findViewById(R.id.card_electricity);
+        card_elect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ActivityElectricity.class);
+                startActivity(intent);
+            }
+        });
+
+        card_tv = view.findViewById(R.id.card_tv);
+        card_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ActivityTv.class);
                 startActivity(intent);
             }
         });

@@ -94,7 +94,7 @@ public class SaveCardsActivity extends AppCompatActivity {
         viewDialog.showDialog();
         GetListAdapter.clear();
 
-        jsonArrayRequest = new JsonArrayRequest(Config.url + "cards.php?userid=" + sessionHandlerUser.getUserDetail().getUserid(), new Response.Listener<JSONArray>() {
+        jsonArrayRequest = new JsonArrayRequest(Config.url + "cards.php?userid=" + sessionHandlerUser.getUserDetail().getEmail(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 viewDialog.hideDialog();
@@ -119,11 +119,11 @@ public class SaveCardsActivity extends AppCompatActivity {
 
             try {
                 json = array.getJSONObject(i);
-                getcardsAdapter.setAuthorization_key(json.getString("authorization_key"));
+                getcardsAdapter.setAuthorization_key(json.getString("authorization"));
                 getcardsAdapter.setCard_number(Integer.parseInt(json.getString("card_full_number")));
                 getcardsAdapter.setCard_type(json.getString("card_type"));
-                getcardsAdapter.setChannel(json.getString("channel"));
-                getcardsAdapter.setSet_default(json.getString("set_default"));
+//                getcardsAdapter.setChannel(json.getString("channel"));
+                getcardsAdapter.setSet_default(json.getString("default-card"));
 
             } catch (JSONException e) {
                 e.printStackTrace();

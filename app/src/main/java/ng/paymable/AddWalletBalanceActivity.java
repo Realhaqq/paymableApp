@@ -294,6 +294,7 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
                 mBottomSheetDialog.hide();
 
                 ChargeNow(cardno);
+
 //                Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
             }
 
@@ -330,7 +331,7 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
         viewDialog.showDialog();
         GetListAdapter.clear();
 
-        jsonArrayRequest = new JsonArrayRequest(Config.url + "cards.php?userid=" + sessionHandlerUser.getUserDetail().getUserid(), new Response.Listener<JSONArray>() {
+        jsonArrayRequest = new JsonArrayRequest(Config.url + "cards.php?userid=" + sessionHandlerUser.getUserDetail().getEmail(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 viewDialog.hideDialog();
@@ -355,11 +356,11 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
 
             try {
                 json = array.getJSONObject(i);
-                getcardsAdapter.setAuthorization_key(json.getString("authorization_key"));
+                getcardsAdapter.setAuthorization_key(json.getString("authorization"));
                 getcardsAdapter.setCard_number(Integer.parseInt(json.getString("card_full_number")));
                 getcardsAdapter.setCard_type(json.getString("card_type"));
-                getcardsAdapter.setChannel(json.getString("channel"));
-                getcardsAdapter.setSet_default(json.getString("set_default"));
+//                getcardsAdapter.setChannel(json.getString("channel"));
+                getcardsAdapter.setSet_default(json.getString("default-card"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -402,6 +403,7 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
                 toast.setDuration(Toast.LENGTH_LONG);
                 toast.setView(layout);
                 toast.show();
+                finish();
 
             }
 
@@ -411,6 +413,7 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
 
                 data.put("cardno", String.valueOf(cardno));
                 data.put("amount", edtxt.getText().toString());
+                data.put("userid", String.valueOf(sessionHandlerUser.getUserDetail().getUserid()));
 
 
                 String result = rh.sendPostRequest(Config.url + "pay/charge_card.php",data);

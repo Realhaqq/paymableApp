@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f6f6f6"
+    tools:context=".MyTransactionActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/toolbar2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="178.3dp"
+            android:orientation="vertical"
+
+            android:background="@color/white">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="94.3dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="3dp"
+                android:layout_marginLeft="16.7dp"
+                android:layout_marginRight="16.7dp"
+                android:layout_marginTop="25dp"
+                android:background="@color/bg_blue">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@color/bg_blue">
+
+                    <LinearLayout
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:background="@drawable/clickable"
+                        android:id="@+id/lyt_mtn"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/mtn"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/lyt_airtel"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:background="@drawable/clickable"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/airtel"/>
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/lyt_glo"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:background="@drawable/clickable"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/glo"/>
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/lyt_etisalat"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:background="@drawable/clickable"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/etisalat"/>
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+
+            <customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/text_lyt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:fontFamily="sans-serif-medium"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="MTN AIRTIME VTU"
+                android:textColor="@color/geryTxt"
+                android:textSize="16.7sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ececec"/>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16.7dp"
+                android:layout_marginRight="16.7dp"
+                android:orientation="vertical">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ffffff" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/signin_rect"
+                    android:elevation="1dp">
+    <customfonts.EditText_Roboto_Regular
+                        android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:fontFamily="sans-serif"
+                        android:hint="Mobile Number"
+                        android:inputType="number"
+                        android:paddingLeft="16.3dp"
+                        android:paddingTop="15.7dp"
+                        android:paddingBottom="15.7dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black_txt_Color"
+                        android:textColorHint="@color/hint_color"
+                        android:textSize="15sp"
+
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/signin_rect"
+                    android:elevation="1dp">
+
+                    <customfonts.EditText_Roboto_Regular
+                        android:id="@+id/amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:fontFamily="sans-serif"
+                        android:hint="Amount"
+                        android:inputType="number"
+                        android:paddingLeft="16.3dp"
+                        android:paddingTop="20.7dp"
+                        android:paddingBottom="15.7dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black_txt_Color"
+                        android:textColorHint="@color/hint_color"
+                        android:textSize="15sp"
+
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+
+<!--                <customfonts.Button_Roboto_Medium-->
+<!--                    android:id="@+id/btn_continue"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:background="@drawable/signin_rect"-->
+<!--                    android:elevation="1dp"-->
+<!--                    android:fontFamily="sans-serif"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:paddingTop="15.7dp"-->
+<!--                    android:paddingBottom="15.7dp"-->
+<!--                    android:text="CONTINUE"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:textColor="@color/bg_blue"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:textStyle="normal" />-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ececec" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ececec" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ececec" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+<!--    <customfonts.MyTextView_Roboto_Regular-->
+<!--        android:id="@+id/btn_save"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="@color/bg_blue"-->
+<!--        android:textSize="15sp"-->
+<!--        android:fontFamily="sans-serif"-->
+<!--        android:textStyle="normal"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:paddingTop="16.3dp"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:text="PAY NOW">-->
+
+<!--    </customfonts.MyTextView_Roboto_Regular>-->
+
+    <customfonts.Button_Roboto_Medium
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="16.7dp"
+        android:layout_marginRight="16.7dp"
+        android:layout_marginBottom="16.7dp"
+        android:background="@drawable/signin_rect"
+        android:elevation="1dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center_horizontal"
+        android:paddingTop="15.7dp"
+        android:paddingBottom="15.7dp"
+        android:text="CONTINUE"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/bg_blue"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:textStyle="normal" />
+
+</RelativeLayout>

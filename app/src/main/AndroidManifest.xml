@@ -27,7 +27,11 @@
             </intent-filter>
         </activity>
         <activity android:name="ng.paymable.WelcomeActivity" />
+        <activity android:name=".ActivityData"/>
+        <activity android:name=".ActivityElectricity"/>
+        <activity android:name=".ActivityTv"/>
         <activity android:name="ng.paymable.LoginActivity" />
+        <activity android:name="ng.paymable.ActivityPayCard" />
         <activity android:name="ng.paymable.SignupActivity" />
         <activity android:name="ng.paymable.MobileVerificationActivity" />
         <activity android:name="ng.paymable.FingerPrintActivity" />
@@ -37,10 +41,9 @@
         <activity android:name="ng.paymable.HomePay2Activity" />
         <activity android:name="ng.paymable.OfferActivity" />
         <activity android:name="ng.paymable.MyTransactionActivity" />
-        <activity android:name="ng.paymable.AddNewCardActivity">
+        <activity android:name="ng.paymable.AddNewCardActivity"/>
+        <activity android:name="ng.paymable.ActivityAirtime"/>
 
-
-        </activity>
         <activity android:name="ng.paymable.AddWalletBalanceActivity" />
         <activity android:name="ng.paymable.SaveCardsActivity"></activity>
         <activity android:name="ng.paymable.MyAccountActivity"></activity>
