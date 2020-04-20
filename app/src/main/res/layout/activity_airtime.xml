@@ -283,6 +283,9 @@
 
 <!--    </customfonts.MyTextView_Roboto_Regular>-->
 
+
+
+
     <customfonts.Button_Roboto_Medium
         android:id="@+id/btn_continue"
         android:layout_width="match_parent"
@@ -303,5 +306,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="15sp"
         android:textStyle="normal" />
+
+
 
 </RelativeLayout>

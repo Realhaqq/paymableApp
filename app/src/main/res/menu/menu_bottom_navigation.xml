@@ -4,29 +4,29 @@
 
 
     <item
-        android:icon="@drawable/data_card"
+        android:icon="@drawable/home"
         android:id="@+id/home"
         android:iconTintMode="@color/colorPrimary"
         android:iconTint="@color/colorPrimary"
         android:title="Home"
         />
 
+<!--    <item-->
+<!--        android:icon="@drawable/offers"-->
+<!--        android:id="@+id/search"-->
+<!--        android:iconTint="@color/colorPrimary"-->
+<!--        android:iconTintMode="@color/colorPrimary"-->
+
+<!--        android:title="Search"-->
+
+<!--        />-->
+
+
     <item
-        android:icon="@drawable/offers"
-        android:id="@+id/search"
+        android:icon="@drawable/wallet"
+        android:id="@+id/wallet"
         android:iconTint="@color/colorPrimary"
-        android:iconTintMode="@color/colorPrimary"
-
-        android:title="Search"
-
-        />
-
-
-    <item
-        android:icon="@drawable/scan_and_pay"
-        android:id="@+id/tickets"
-        android:iconTint="@color/colorPrimary"
-        android:title="Tickets"
+        android:title="Wallet"
 
         />
 
@@ -39,6 +39,15 @@
         android:title="Transactions"
 
         />
+
+    <item
+        android:icon="@drawable/ic_pinpad"
+        android:id="@+id/bank"
+        android:iconTint="@color/colorPrimary"
+        android:title="My Bank"
+
+        />
+
 
 
     <item

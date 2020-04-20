@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,9 +49,9 @@ public class ActivityTv extends AppCompatActivity {
 
     ViewDialog viewDialog;
     SessionHandlerUser sessionHandlerUser;
-    private String servicename, cardid, bid, url, typeid;
+    private String service, service_category_id, idno, vname, vamount, aamount, url, type;
 
-    private String orderid, type, ref, data;
+    private String orderid, ref, data;
     private int amounttobepaid;
 
     private Spinner sp_type, sp_tv_type, sp_tv_type2;
@@ -58,16 +59,28 @@ public class ActivityTv extends AppCompatActivity {
     ArrayList<String> type_sp;
     ArrayList<String> meter_type_list;
 
-    ArrayList<String> _url = new ArrayList<String>();
-    ArrayList<String> type_amount = new ArrayList<String>();
+    ArrayList<String> _ids = new ArrayList<String>();
+    ArrayList<String> _amount = new ArrayList<String>();
     ArrayList<String> type_id = new ArrayList<String>();
 
+    ImageView back;
+    TextView txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tv);
         btn_continue = findViewById(R.id.btn_continue);
+        txt= findViewById(R.id.txt);
+        back= findViewById(R.id.back);
+        txt.setText("CableTV");
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
 
         name = new ArrayList<>();
@@ -115,7 +128,6 @@ public class ActivityTv extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_dropdown_item, tv_type);
         spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 
-// Spinner spinYear = (Spinner)findViewById(R.id.spin);
         sp_type.setAdapter(spinnerArrayAdapter);
 
 
@@ -125,22 +137,27 @@ public class ActivityTv extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String comp = sp_type.getSelectedItem().toString();
 
-                servicename = comp;
+
                 text_lyt.setText(comp);
 
                 String tv;
                 if(comp.contains("DSTV")){
+                    service = "dstv";
+                    service_category_id = "14";
                     tv = "dstv";
                 }else if(comp.contains("GOTV")){
+                    service = "gotv";
                     tv = "gotv";
+                    service_category_id = "15";
                 }else{
+                    service = "startimes";
                     tv = "startimes";
+                    service_category_id = "17";
                 }
                 name.clear();
-                _url.clear();
+                _amount.clear();
+                _ids.clear();
                 LoadSpinnerData(tv);
-
-//                Toast.makeText(getApplicationContext(), comp, Toast.LENGTH_LONG).show();
 
             }
 
@@ -157,47 +174,18 @@ public class ActivityTv extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
 
-                String id=_url.get(i);
-                url=_url.get(i);
+                String id=_ids.get(i);
+                idno=_ids.get(i);
 
-                if(id.contains("dstv-premium")){
-                    cardid = "265";
-                    bid = "266";
-                }else if(id.contains("others")){
-                    cardid = "267";
-                    bid = "268";
-                }else if(id.contains("dstv-access")){
-                    cardid = "263";
-                    bid = "264";
-                }else if(id.contains("dstv-family")){
-                    cardid = "261";
-                    bid = "262";
-                }else if(id.contains("dstv-compact")){
-                    cardid = "259";
-                    bid = "260";
-                }else if(id.contains("dstv-premium")){
-                    cardid = "258";
-                    bid = "257";
-                }else if(id.contains("dstv-boxoffice")){
-                    cardid = "285";
-                    bid = "286";
-                }else if(id.contains("top-up")){
-                    cardid = "339";
-                    bid = "340";
-                }else if(id.contains("dstv-padi")){
-                    cardid = "374";
-                    bid = "375";
-                }else if(id.contains("dstv-yanga")){
-                    cardid = "376";
-                    bid = "377";
-                }else if(id.contains("dstv-confam")){
-                    cardid = "378";
-                    bid = "379";
-                }
+                String aaamount=_amount.get(i);
+                aaamount=_amount.get(i);
 
-//                Toast.makeText(getApplicationContext(), id, Toast.LENGTH_LONG).show();
-                type_sp.clear();
-                LoadSpinnerData2(id);
+                amount.setText(aaamount);
+
+                type = sp_tv_type.getSelectedItem().toString();
+
+
+
 
 
             }
@@ -209,34 +197,16 @@ public class ActivityTv extends AppCompatActivity {
         });
 
 
-        sp_tv_type2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-//                Toast.makeText(getApplicationContext(), cardid, Toast.LENGTH_LONG).show();
-
-
-                String amountt=type_amount.get(i);
-                typeid =type_id.get(i);
-
-                amount.setText(amountt);
-//
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
     }
 
 
-    private void displayDialog(final String orderid, String type, final String ref, final int amounttobepaid, String data)
+    private void displayDialog(final String service_category_id, final String service, String ref, final int vamount, final String vname, final String type, final String ccardno)
     {
         final Dialog d=new Dialog(ActivityTv.this);
         d.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
-        d.setContentView(R.layout.dialog_payment_option);
+        d.setContentView(R.layout.dialog_cardno_option);
         d.setCancelable(true);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
@@ -244,40 +214,34 @@ public class ActivityTv extends AppCompatActivity {
         lp.copyFrom(d.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        d.setContentView(R.layout.dialog_payment_option);
+        d.setContentView(R.layout.dialog_cardno_option);
 
-        TextView amount, datta;
-        amount = d.findViewById(R.id.amount);
-        datta = d.findViewById(R.id.textdata);
-        amount.setText("AMOUNT:   ₦" + amounttobepaid);
-        datta.setText("DATA:   " + data);
-        d.findViewById(R.id.lyt_wallet).setOnClickListener(new View.OnClickListener() {
+        TextView txtamout, txtmeterno, txtname, txtaddress, txtproduct;
+        txtamout = d.findViewById(R.id.txtamount);
+        txtaddress = d.findViewById(R.id.txtaddress);
+        txtmeterno = d.findViewById(R.id.textmeterno);
+        txtname = d.findViewById(R.id.txtname);
+        txtproduct = d.findViewById(R.id.txtproduct);
+        txtamout.setText("AMOUNT:   ₦" + vamount);
+        txtaddress.setText("TYPE:   " + type);
+        txtmeterno.setText("CARDNO:   " + ccardno);
+        txtname.setText("CARD NAME:   " + vname);
+        txtproduct.setText("SERVICE:   " + service);
+        d.findViewById(R.id.btn_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(wallet_balance < amounttobepaid){
+                if(wallet_balance < vamount){
                     Toast.makeText(getApplicationContext(), "Insufficient Wallet Balance", Toast.LENGTH_LONG).show();
                 }else{
                     d.dismiss();
-                    ProcessOrder(orderid, ref, amounttobepaid);
+                    ProcessOrder(vamount, service_category_id, service, vname, type, ccardno);
 //                    Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
 
                 }
             }
         });
 
-        d.findViewById(R.id.lyt_credit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                d.dismiss();
-                Intent intent = new Intent(ActivityTv.this, ActivityPayCard.class);
-                intent.putExtra("orderid", orderid);
-                intent.putExtra("ref", ref);
-                intent.putExtra("amount", amounttobepaid);
-                intent.putExtra("userid", sessionHandlerUser.getUserDetail().getUserid());
-                startActivity(intent);
 
-            }
-        });
         d.findViewById(R.id.bt_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -294,21 +258,21 @@ public class ActivityTv extends AppCompatActivity {
     private void LoadSpinnerData(String tv) {
         viewDialog.showDialog();
         RequestQueue requestQueue=Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, "https://paymable.ng/json/" + tv + "-type.json", new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, "https://paymable.ng/rubies_json/" + tv + ".json", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 viewDialog.hideDialog();
                 try{
                     JSONObject jsonObject=new JSONObject(response);
 //                    if(jsonObject.getInt("success")==1){
-                    JSONArray jsonArray=jsonObject.getJSONArray("serviceList");
+                    JSONArray jsonArray=jsonObject.getJSONArray("productcategories");
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObject1=jsonArray.getJSONObject(i);
                         String value=jsonObject1.getString("name");
-//                        String id=jsonObject1.getString("id");
-                        String url=jsonObject1.getString("url");
-                        _url.add(url);
-//                        _amount.add(amount);
+                        String id=jsonObject1.getString("bundleCode");
+                        String amount=jsonObject1.getString("amount");
+                        _ids.add(id);
+                        _amount.add(amount);
                         name.add(value);
 
 //                        }
@@ -331,49 +295,12 @@ public class ActivityTv extends AppCompatActivity {
 
 
 
-    private void LoadSpinnerData2(String url) {
-        viewDialog.showDialog();
-        RequestQueue requestQueue=Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, "https://paymable.ng/json/" + url +".json", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                viewDialog.hideDialog();
-                try{
-                    JSONObject jsonObject=new JSONObject(response);
-//                    if(jsonObject.getInt("success")==1){
-                    JSONArray jsonArray=jsonObject.getJSONArray("agentServiceDropdownData");
-                    for(int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject1=jsonArray.getJSONObject(i);
-                        String value=jsonObject1.getString("value");
-                        String id=jsonObject1.getString("id");
-                        String amount=jsonObject1.getString("amount");
-                        type_amount.add(amount);
-                        type_id.add(id);
-                        type_sp.add(value);
 
-//                        }
-                    }
-                    sp_tv_type2.setAdapter(new ArrayAdapter<String>(ActivityTv.this, android.R.layout.simple_spinner_dropdown_item, type_sp));
-                }catch (JSONException e){e.printStackTrace();}
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                viewDialog.hideDialog();
-                error.printStackTrace();
-            }
-        });
-        int socketTimeout = 30000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        stringRequest.setRetryPolicy(policy);
-        requestQueue.add(stringRequest);
-    }
-
-
-    private void CheckOrder(String amount, String ccardno) {
+    private void CheckOrder(String amount, final String ccardno) {
         viewDialog.showDialog();
         Intent intent = getIntent();
-        String url_ = Config.url+"kobopay/tv_init.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&url=" + url + "&cardid=" + cardid + "&cardno="+ ccardno + "&type="+ typeid + "&bid=" + bid + "&amount=" + amount;
+        String url_ = Config.url+"rubies/tv_verify.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&service=" + service + "&service_category_id="+ service_category_id + "&cardno=" + ccardno + "&amount=" + amount + "&type=" + type;
+        url_ = url_.replaceAll(" ", "%20");
 
         Log.d("tttt", url_);
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
@@ -385,14 +312,19 @@ public class ActivityTv extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(response);
 
                     if (jsonObject.getInt("status") == 0) {
-                        orderid = jsonObject.getString("orderid");
+//                        orderid = jsonObject.getString("orderid");
                         type = jsonObject.getString("type");
                         ref = jsonObject.getString("ref");
-                        data = jsonObject.getString("ddata");
-                        amounttobepaid = Integer.parseInt(jsonObject.getString("amount"));
+//                        data = jsonObject.getString("ddata");
+//                        amounttobepaid = Integer.parseInt(jsonObject.getString("amount"));
+
+                        service_category_id = jsonObject.getString("service_category_id");
+                        ref = jsonObject.getString("ref");
+                        vname = jsonObject.getString("name");
+                        vamount = String.valueOf(Integer.parseInt(jsonObject.getString("amount")));
 //                        Toast.makeText(getApplicationContext(), "message2" +  jsonObject.getString("amount"), Toast.LENGTH_LONG).show();
 
-                        displayDialog(orderid, type, ref, amounttobepaid, data);
+                        displayDialog(service_category_id, service, ref, Integer.parseInt(vamount), vname, type, ccardno);
                     } else if(jsonObject.getInt("status") == 1) {
 
                         ViewDialogAlert alert = new ViewDialogAlert();
@@ -425,10 +357,12 @@ public class ActivityTv extends AppCompatActivity {
 
 
 
-    private void ProcessOrder(String orderid, String ref, int amount){
+    private void ProcessOrder(int vamount, String service_category_id, String service, String vname, String type, String ccardno){
         viewDialog.showDialog();
         Intent intent = getIntent();
-        String url_ = Config.url+"kobopay/kobo_process.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&orderid=" + orderid + "&ref=" + ref + "&amount=" + amount;
+        String url_ = Config.url+"rubies/tv_process.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&service_category_id=" + service_category_id + "&idno=" + idno + "&amount=" + vamount + "&type=" + type + "&cardno=" + ccardno + "&service=" + service + "&name=" + vname;
+        url_ = url_.replaceAll(" ", "%20");
+        Log.d("tttt", url_);
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url_, new Response.Listener<String>() {
             @Override

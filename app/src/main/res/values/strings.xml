@@ -7,6 +7,9 @@
     <string name="t_amp_c_apply"><![CDATA[*T&C Apply]]></string>
     <string name="my_transactions">My Transactions</string>
     <string name="wallet_balance">Wallet Balance</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
     <string name="_1_500_20">$ 1,500.20</string>
     <string name="mon_15_feb_balance_36_131_45">Mon 15 Feb Balance $ 36,131.45</string>
     <string name="mobile_recharged">Mobile recharged</string>

@@ -3,12 +3,15 @@ package ng.paymable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import Adapters.AddNewCardFragmentAdapter;
 
 public class AddNewCardActivity extends AppCompatActivity {
     TextView txt;
+    ImageView back;
 
     WrapContentHeightViewPager wrapContentHeightViewPager;
 
@@ -19,8 +22,14 @@ public class AddNewCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_card);
 
         txt=(TextView)findViewById(R.id.txt);
-
         txt.setText("Add New Card");
+        back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         TabLayout tabLayout = findViewById(R.id.tab);
 

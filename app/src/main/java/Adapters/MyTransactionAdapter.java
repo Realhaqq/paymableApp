@@ -38,7 +38,7 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
             phnNo=(TextView)view.findViewById(R.id.phnNo);
 
             iconImage=(ImageView)view.findViewById(R.id.iconImage);
-            debitLogo=(ImageView)view.findViewById(R.id.debitLogo);
+//            debitLogo=(ImageView)view.findViewById(R.id.debitLogo);
 
 
         }

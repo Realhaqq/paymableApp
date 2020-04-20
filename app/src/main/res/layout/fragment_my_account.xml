@@ -10,8 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include layout="@layout/toolbar2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="62.7dp"
+            android:orientation="horizontal"
+            android:id="@+id/ll1"
+            android:layout_alignParentTop="true"
+            android:background="@color/bg_blue">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
+                <ImageView
+                    android:layout_width="111dp"
+                    android:layout_height="31dp"
+                    android:layout_marginLeft="13.7dp"
+                    android:layout_marginTop="14.7dp"
+                    android:src="@drawable/payw" />
+            </LinearLayout>
+        </LinearLayout>
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -187,6 +205,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -220,6 +239,7 @@
                         android:background="#ececec" />
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -252,6 +272,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/lyt_help"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -282,6 +303,7 @@
                         android:background="#ececec" />
 
                     <LinearLayout
+                        android:id="@+id/lyt_policy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"

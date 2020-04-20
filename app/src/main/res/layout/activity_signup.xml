@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/wallet_bg"
     tools:context=".LoginActivity">
-
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +31,7 @@
             android:layout_marginTop="8dp"
             android:singleLine="true"
             android:fontFamily="sans-serif"
-            android:text="Sign up"
+            android:text="Create new Account"
             android:textColor="@color/black_txt_Color"
             android:textSize="15sp"
             android:textStyle="normal" />
@@ -215,5 +217,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

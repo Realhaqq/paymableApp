@@ -3,6 +3,7 @@ package ng.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -37,10 +38,6 @@ import ng.paymable.others.MySingleton;
 import ng.sessions.SessionHandlerUser;
 import ng.paymable.Config;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyAccountFragment extends Fragment {
 
 
@@ -52,7 +49,7 @@ public class MyAccountFragment extends Fragment {
 
 
     private TextView txtname, txtemail, txtphone, txtbalance, txtlogoname;
-    LinearLayout logout, card_save_card;
+    LinearLayout logout, card_save_card, lyt_help, lyt_policy;
     SessionHandlerUser sessionHandlerUser;
     ViewDialog viewDialog;
     @Override
@@ -81,6 +78,22 @@ public class MyAccountFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SaveCardsActivity.class);
                 startActivity(intent);
+            }
+        });
+        lyt_help = view.findViewById(R.id.lyt_help);
+        lyt_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://help.paymable.ng"));
+                startActivity(browserIntent);
+            }
+        });
+        lyt_policy = view.findViewById(R.id.lyt_policy);
+        lyt_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://paymable.ng/Privary_Policy"));
+                startActivity(browserIntent);
             }
         });
         logout = view.findViewById(R.id.logout);

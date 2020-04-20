@@ -110,7 +110,7 @@ public class AddNewCardFragment extends Fragment {
         viewDialog.showDialog();
 
         if (local) {
-            charge.setAmount(50);
+            charge.setAmount(1);
             charge.setEmail(sessionHandlerUser.getUserDetail().getEmail());
             charge.setReference("ChargedFromAndroid_" + Calendar.getInstance().getTimeInMillis());
             try {

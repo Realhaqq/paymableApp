@@ -12,22 +12,23 @@
         android:orientation="vertical"
         android:layout_marginTop="115.7dp"
         android:gravity="center_horizontal">
-    <ImageView
-        android:layout_width="135dp"
-        android:layout_height="77dp"
-        android:tint="@color/colorPrimary"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/paywhite"/>
+
+        <ImageView
+            android:layout_width="211dp"
+            android:layout_height="77dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/paywhite"
+            android:tint="@color/colorPrimary" />
 
         <customfonts.MyTextView_Roboto_Regular
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:fontFamily="sans-serif"
             android:textStyle="normal"
             android:textColor="@color/black_txt_Color"
             android:layout_marginTop="8dp"
-            android:text="Bills Payment Made Easy! "
+            android:text="Bills Payment Made Easier! "
             />
 
     </LinearLayout>
@@ -37,7 +38,7 @@
         android:textSize="11.7sp"
         android:textColor="#454545"
         android:gravity="center_horizontal"
-        android:text="paymable.ng"
+        android:text="(c) Paymable Technologies LTD"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"

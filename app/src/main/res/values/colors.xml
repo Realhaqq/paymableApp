@@ -20,6 +20,10 @@
     <color name="green">#28a644</color>
     <color name="light_weight_gray">#99000000</color>
     <color name="black">#000000</color>
+    <color name="light_gray">#D3D3D3</color>
+
+
+    <color name="status_bar_color">#FFFFFF</color>
 
 
     <color name="overlay_dark_10">#1A000000</color>

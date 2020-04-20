@@ -61,7 +61,7 @@ public class SaveCardsActivity extends AppCompatActivity {
         add_new_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SaveCardsActivity.this, AddNewCardActivity.class);
+                Intent intent = new Intent(SaveCardsActivity.this, AddCardPaymetWeb.class);
                 startActivity(intent);
             }
         });

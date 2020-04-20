@@ -1,36 +1,21 @@
 package ng.paymable;
 
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
-import com.roughike.bottombar.OnTabReselectListener;
-import com.roughike.bottombar.OnTabSelectListener;
 
-import java.util.ArrayList;
-
-import Adapters.GridAdapter;
-import Adapters.ProfilePagerAdapter_walkthrough_01;
-import Models.GridModel;
-import me.relex.circleindicator.CircleIndicator;
+import ng.fragment.BankFragment;
 import ng.fragment.HomeFragment;
 import ng.fragment.MyAccountFragment;
+import ng.fragment.TransactionFragment;
+import ng.fragment.WalletTransactionFragment;
 
 public class HomePay2Activity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -205,13 +190,17 @@ public class HomePay2Activity extends AppCompatActivity implements BottomNavigat
                 fragment = new MyAccountFragment();
                 break;
 
-//            case R.id.navigation_:
-//                fragment = new NotificationsFragment();
-//                break;
+            case R.id.transactions:
+                fragment = new TransactionFragment();
+                break;
+
+            case R.id.bank:
+                fragment = new BankFragment();
+                break;
 //
-//            case R.id.navigation_profile:
-//                fragment = new ProfileFragment();
-//                break;
+            case R.id.wallet:
+                fragment = new WalletTransactionFragment();
+                break;
         }
 
         return loadFragment(fragment);

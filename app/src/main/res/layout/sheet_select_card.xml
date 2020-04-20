@@ -70,7 +70,27 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerView">
             </android.support.v7.widget.RecyclerView>
+
+
             </ScrollView>
+
+            <customfonts.MyTextView_Roboto_Regular
+                android:id="@+id/user_new_card"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/bg_blue"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                android:paddingTop="16.3dp"
+                android:gravity="center_horizontal"
+                android:text="User New Card">
+
+            </customfonts.MyTextView_Roboto_Regular>
+
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,9 +53,9 @@ public class ActivityElectricity extends AppCompatActivity {
 
     ViewDialog viewDialog;
     SessionHandlerUser sessionHandlerUser;
-    private String servicename, meterid, amountid, metertype, idno;
+    private String product, meterid, amountid, metertype, idno;
 
-    private String orderid, type, ref, data;
+    private String service_category_id, name, ref, address, vmeterno, vproduct, vamount;
     private int amounttobepaid;
 
     private Spinner sp_type, sp_meter_type;
@@ -64,6 +65,8 @@ public class ActivityElectricity extends AppCompatActivity {
     ArrayList<String> _ids = new ArrayList<String>();
     ArrayList<String> _amount = new ArrayList<String>();
 
+    ImageView back;
+    TextView txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +74,18 @@ public class ActivityElectricity extends AppCompatActivity {
         setContentView(R.layout.activity_electricity);
         btn_continue = findViewById(R.id.btn_continue);
 
+        txt= findViewById(R.id.txt);
+        back= findViewById(R.id.back);
+        txt.setText("Electricity");
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-//        data_list = new ArrayList<>();
+
+        comp_list = new ArrayList<>();
         viewDialog = new ViewDialog(this);
         sessionHandlerUser = new SessionHandlerUser(getApplicationContext());
 
@@ -83,13 +96,15 @@ public class ActivityElectricity extends AppCompatActivity {
 
 
 
-        final String[] companies={"KEDCO","AEDC","EEDC","IBEDC","JED","ikeja-electricity","EKEDC","PHEDC"};
-        final String[] meter_type={"PREPAID", "POSTPAID"};
+//        final String[] companies={"KEDCO","AEDC","EEDC","IBEDC","JED","ikeja-electricity","EKEDC","PHEDC"};
+//        final String[] meter_type={"PREPAID", "POSTPAID"};
 
         meterno = findViewById(R.id.meterno);
         text_lyt = findViewById(R.id.text_lyt);
         amount = findViewById(R.id.amount);
 
+
+        LoadSpinnerData();
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,32 +126,18 @@ public class ActivityElectricity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_dropdown_item, companies);
-        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 
-// Spinner spinYear = (Spinner)findViewById(R.id.spin);
-        sp_type.setAdapter(spinnerArrayAdapter);
-
-        ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_dropdown_item, meter_type);
-        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-
-// Spinner spinYear = (Spinner)findViewById(R.id.spin);
-        sp_meter_type.setAdapter(spinnerArrayAdapter2);
 
 
 
         sp_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String comp = sp_type.getSelectedItem().toString();
+                idno =_ids.get(i);
+                String nname=sp_type.getSelectedItem().toString();
+                product =sp_type.getSelectedItem().toString();
 
-                servicename = comp;
-
-                text_lyt.setText(comp);
-
-//                Toast.makeText(getApplicationContext(), comp, Toast.LENGTH_LONG).show();
+                text_lyt.setText(nname);
 
             }
 
@@ -146,120 +147,15 @@ public class ActivityElectricity extends AppCompatActivity {
             }
         });
 
-        sp_meter_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String comp = sp_meter_type.getSelectedItem().toString();
-
-                if (sp_type.getSelectedItem().toString().contains("KEDCO")){
-                    idno = "384";
-                    meterid = "385";
-                    amountid = "386";
-
-                    if(sp_meter_type.getSelectedItem().toString().contains("PREPAID"))
-                    {
-                        metertype = "626";
-                    }else{
-                        metertype = "627";
-                    }
-                }else if (sp_type.getSelectedItem().toString().contains("AEDC")){
-                    idno = "282";
-                    meterid = "241";
-                    amountid = "242";
-
-                    if(sp_meter_type.getSelectedItem().toString().contains("PREPAID"))
-                    {
-                        metertype = "354";
-                    }else{
-                        metertype = "371";
-                    }
-                }else if (sp_type.getSelectedItem().toString().contains("EEDC")){
-                    idno = "287";
-                    meterid = "288";
-                    amountid = "289";
-
-                    if(sp_meter_type.getSelectedItem().toString().contains("PREPAID"))
-                    {
-                        metertype = "355";
-                    }else{
-                        metertype = "356";
-                    }
-                }else if (sp_type.getSelectedItem().toString().contains("IBEDC")){
-                    idno = "290";
-                    meterid = "291";
-                    amountid = "292";
-
-                    if(sp_meter_type.getSelectedItem().toString().contains("PREPAID"))
-                    {
-                        metertype = "307";
-                    }else{
-                        metertype = "308";
-                    }
-                }else if (sp_type.getSelectedItem().toString().contains("JED")){
-                    idno = "250";
-                    meterid = "249";
-                    amountid = "280";
-
-                    if(sp_meter_type.getSelectedItem().toString().contains("PREPAID"))
-                    {
-                        metertype = "347";
-                    }else{
-                        metertype = "348";
-                    }
-                }else if (sp_type.getSelectedItem().toString().contains("ikeja-electricity")){
-                    idno = "247";
-                    meterid = "246";
-                    amountid = "248";
-
-                    if(sp_meter_type.getSelectedItem().toString().contains("PREPAID"))
-                    {
-                        metertype = "349";
-                    }else{
-                        metertype = "350";
-                    }
-                }else if (sp_type.getSelectedItem().toString().contains("EKEDC")){
-                    idno = "244";
-                    meterid = "243";
-                    amountid = "245";
-
-                    if(sp_meter_type.getSelectedItem().toString().contains("PREPAID"))
-                    {
-                        metertype = "352";
-                    }else{
-                        metertype = "353";
-                    }
-                }else if (sp_type.getSelectedItem().toString().contains("PHEDC")){
-                    idno = "255";
-                    meterid = "254";
-                    amountid = "256";
-
-                    if(sp_meter_type.getSelectedItem().toString().contains("PREPAID"))
-                    {
-                        metertype = "345";
-                    }else{
-                        metertype = "346";
-                    }
-                }
-
-
-//                Toast.makeText(getApplicationContext(), comp, Toast.LENGTH_LONG).show();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
     }
 
 
-    private void displayDialog(final String orderid, String type, final String ref, final int amounttobepaid, String data)
+    private void displayDialog(final String service_category_id, final String vmeterno, String ref, final String vproduct, final String name, String address, final int vamount)
     {
         final Dialog d=new Dialog(ActivityElectricity.this);
         d.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
-        d.setContentView(R.layout.dialog_payment_option);
+        d.setContentView(R.layout.dialog_meter_verify);
         d.setCancelable(true);
         d.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
@@ -267,40 +163,34 @@ public class ActivityElectricity extends AppCompatActivity {
         lp.copyFrom(d.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        d.setContentView(R.layout.dialog_payment_option);
+        d.setContentView(R.layout.dialog_meter_verify);
 
-        TextView amount, datta;
-        amount = d.findViewById(R.id.amount);
-        datta = d.findViewById(R.id.textdata);
-        amount.setText("AMOUNT:   ₦" + amounttobepaid);
-        datta.setText("DATA:   " + data);
-        d.findViewById(R.id.lyt_wallet).setOnClickListener(new View.OnClickListener() {
+        TextView txtamout, txtmeterno, txtname, txtaddress, txtproduct;
+        txtamout = d.findViewById(R.id.txtamount);
+        txtaddress = d.findViewById(R.id.txtaddress);
+        txtmeterno = d.findViewById(R.id.textmeterno);
+        txtname = d.findViewById(R.id.txtname);
+        txtproduct = d.findViewById(R.id.txtproduct);
+        txtamout.setText("AMOUNT:   ₦" + vamount);
+        txtaddress.setText("ADDRESS:   " + address);
+        txtmeterno.setText("METERNO:   " + vmeterno);
+        txtname.setText("METER NAME:   " + name);
+        txtproduct.setText("SERVICE:   " + vproduct);
+        d.findViewById(R.id.btn_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(wallet_balance < amounttobepaid){
+                if(wallet_balance < vamount){
                     Toast.makeText(getApplicationContext(), "Insufficient Wallet Balance", Toast.LENGTH_LONG).show();
                 }else{
                     d.dismiss();
-                    ProcessOrder(orderid, ref, amounttobepaid);
+                    ProcessOrder(service_category_id, vmeterno, vproduct, name, vamount);
 //                    Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
 
                 }
             }
         });
 
-        d.findViewById(R.id.lyt_credit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                d.dismiss();
-                Intent intent = new Intent(ActivityElectricity.this, ActivityPayCard.class);
-                intent.putExtra("orderid", orderid);
-                intent.putExtra("ref", ref);
-                intent.putExtra("amount", amounttobepaid);
-                intent.putExtra("userid", sessionHandlerUser.getUserDetail().getUserid());
-                startActivity(intent);
 
-            }
-        });
         d.findViewById(R.id.bt_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -313,13 +203,52 @@ public class ActivityElectricity extends AppCompatActivity {
     }
 
 
+    private void LoadSpinnerData() {
+        viewDialog.showDialog();
+        RequestQueue requestQueue=Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, "https://paymable.ng/rubies_json/elect_type.json", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                viewDialog.hideDialog();
+                try{
+                    JSONObject jsonObject=new JSONObject(response);
+//                    if(jsonObject.getInt("success")==1){
+                    JSONArray jsonArray=jsonObject.getJSONArray("servicecategory");
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                        String value=jsonObject1.getString("billername");
+                        String id=jsonObject1.getString("service_category_id");
+//                        String url=jsonObject1.getString("url");
+                        _ids.add(id);
+//                        _amount.add(amount);
+                        comp_list.add(value);
+
+//                        }
+                    }
+                    sp_type.setAdapter(new ArrayAdapter<String>(ActivityElectricity.this, android.R.layout.simple_spinner_dropdown_item, comp_list));
+                }catch (JSONException e){e.printStackTrace();}
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                viewDialog.hideDialog();
+                error.printStackTrace();
+            }
+        });
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
+    }
+
 
     private void CheckOrder(String amount, String meternoo) {
         viewDialog.showDialog();
         Intent intent = getIntent();
-        String url_ = Config.url+"kobopay/elect_init.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&servicename=" + servicename + "&amountid=" + amountid + "&idno="+ idno + "&type="+ metertype + "&meterid=" + meterid + "&meterno=" + meternoo + "&amount=" + amount;
+        String url_ = Config.url+"rubies/elect_verify.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&product=" + product + "&service_category_id="+ idno + "&meterno=" + meternoo + "&amount=" + amount;
+        url_ = url_.replaceAll(" ", "%20");
 
-        Log.d("tttt", url_);
+//        Log.d("tttt", url_);
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url_, new Response.Listener<String>() {
             @Override
@@ -329,14 +258,16 @@ public class ActivityElectricity extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(response);
 
                     if (jsonObject.getInt("status") == 0) {
-                        orderid = jsonObject.getString("orderid");
-                        type = jsonObject.getString("type");
+                        service_category_id = jsonObject.getString("service_category_id");
+                        vmeterno = jsonObject.getString("meterno");
                         ref = jsonObject.getString("ref");
-                        data = jsonObject.getString("ddata");
-                        amounttobepaid = Integer.parseInt(jsonObject.getString("amount"));
+                        vproduct = jsonObject.getString("product");
+                        name = jsonObject.getString("name");
+                        address = jsonObject.getString("address");
+                        vamount = String.valueOf(Integer.parseInt(jsonObject.getString("amount")));
 //                        Toast.makeText(getApplicationContext(), "message2" +  jsonObject.getString("amount"), Toast.LENGTH_LONG).show();
 
-                        displayDialog(orderid, type, ref, amounttobepaid, data);
+                        displayDialog(service_category_id, vmeterno, ref, vproduct, name, address, Integer.parseInt(vamount));
                     } else if(jsonObject.getInt("status") == 1) {
 
                         ViewDialogAlert alert = new ViewDialogAlert();
@@ -369,10 +300,13 @@ public class ActivityElectricity extends AppCompatActivity {
 
 
 
-    private void ProcessOrder(String orderid, String ref, int amount){
+    private void ProcessOrder(String service_category_id, String vmeterno, String vproduct, String name, int vamount){
         viewDialog.showDialog();
         Intent intent = getIntent();
-        String url_ = Config.url+"kobopay/kobo_process.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&orderid=" + orderid + "&ref=" + ref + "&amount=" + amount;
+        String url_ = Config.url+"rubies/elect_process.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&service_category_id=" + service_category_id + "&product=" + vproduct + "&amount=" + vamount + "&name=" + name + "&meterno=" + vmeterno;
+        url_ = url_.replaceAll(" ", "%20");
+                Log.d("tttt", url_);
+
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url_, new Response.Listener<String>() {
             @Override

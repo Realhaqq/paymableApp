@@ -30,9 +30,11 @@
                     android:src="@drawable/payw" />
             </LinearLayout>
             <ImageView
+                android:id="@+id/help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/notification"
+                android:src="@drawable/help"
+                android:tint="@color/white"
                 android:layout_marginTop="14.7dp"
                 android:layout_marginRight="20dp"/>
         </LinearLayout>
@@ -52,12 +54,12 @@
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="57dp"
+                        android:layout_height="60dp"
                         android:background="@color/bg_blue"></LinearLayout>
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="123.3dp"
+                        android:layout_height="140.3dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="60dp"
                         android:layout_marginLeft="10dp"
@@ -65,26 +67,44 @@
                         android:layout_marginBottom="10dp"
                         app:cardCornerRadius="2dp">
 
-                        <android.support.v4.view.ViewPager
-                            android:id="@+id/viewPager"
-                            android:layout_width="397dp"
-                            android:layout_height="100.3dp"
-                            android:layout_gravity="center"
-                            android:clipToPadding="false"></android.support.v4.view.ViewPager>
+<!--                        <android.support.v4.view.ViewPager-->
+<!--                            android:id="@+id/viewPager"-->
+<!--                            android:layout_width="374dp"-->
+<!--                            android:layout_height="100.3dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:clipToPadding="false"></android.support.v4.view.ViewPager>-->
 
-                        <me.relex.circleindicator.CircleIndicator
-                            android:id="@+id/indicator"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginTop="90dp"
-                            android:minWidth="4dp"
-                            android:minHeight="4dp"
-                            app:ci_drawable="@drawable/ic_select_circle"
-                            app:ci_drawable_unselected="@drawable/ic_full_circle"
-                            app:ci_height="4dp"
-                            app:ci_width="4dp" />
+<!--                        <me.relex.circleindicator.CircleIndicator-->
+<!--                            android:id="@+id/indicator"-->
+<!--                            android:layout_width="253dp"-->
+<!--                            android:layout_height="23dp"-->
+<!--                            android:layout_alignParentBottom="true"-->
+<!--                            android:layout_marginTop="90dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:minWidth="4dp"-->
+<!--                            android:minHeight="4dp"-->
+<!--                            app:ci_drawable="@drawable/ic_select_circle"-->
+<!--                            app:ci_drawable_unselected="@drawable/ic_full_circle"-->
+<!--                            app:ci_height="4dp"-->
+<!--                            app:ci_width="4dp" />-->
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"/>
+
+
                     </android.support.v7.widget.CardView>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/SliderDots"
+                        android:layout_below="@+id/viewPager"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
                     <android.support.v7.widget.CardView
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
@@ -228,33 +248,35 @@
                                         />
 
                                 </LinearLayout>
+
                                 <LinearLayout
+                                    android:id="@+id/card_waec"
                                     android:layout_width="30dp"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:layout_weight="1"
+                                    android:layout_height="match_parent"
                                     android:layout_gravity="center_horizontal"
-                                    android:gravity="center_horizontal">
+                                    android:layout_weight="1"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@drawable/request_money"
-                                        />
+                                        android:src="@drawable/ic_pinpad" />
+
                                     <customfonts.MyTextView_Roboto_Regular
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="11.7sp"
                                         android:layout_marginTop="13.3dp"
                                         android:fontFamily="sans-serif"
-                                        android:textStyle="normal"
-                                        android:textColor="@color/black_txt"
                                         android:gravity="center_horizontal"
-                                        android:text="Request Money"
-                                        />
+                                        android:text="WAEC PIN"
+                                        android:textColor="@color/black_txt"
+                                        android:textSize="11.7sp"
+                                        android:textStyle="normal" />
 
                                 </LinearLayout>
                                 <LinearLayout
-                                    android:id="@+id/cafrd_wallet"
+                                    android:id="@+id/card_jamb"
                                     android:layout_width="30dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
@@ -264,7 +286,7 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@drawable/topup_wallet"
+                                        android:src="@drawable/ic_pinpad"
                                         />
                                     <customfonts.MyTextView_Roboto_Regular
                                         android:layout_width="wrap_content"
@@ -275,7 +297,7 @@
                                         android:textStyle="normal"
                                         android:textColor="@color/black_txt"
                                         android:gravity="center_horizontal"
-                                        android:text="Topup Wallet"
+                                        android:text="JAMB e-PIN"
                                         />
 
                                 </LinearLayout>
@@ -314,6 +336,7 @@
                             android:orientation="horizontal"
                             android:layout_marginTop="22.7dp">
                             <LinearLayout
+                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
@@ -321,6 +344,8 @@
                                 android:layout_gravity="center_horizontal"
                                 android:gravity="center_horizontal">
                                 <ImageView
+                                    android:visibility="gone"
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/send_money"
@@ -346,11 +371,14 @@
                                 android:layout_gravity="center_horizontal"
                                 android:gravity="center_horizontal">
                                 <ImageView
+                                    android:visibility="gone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/request_money"
                                     />
                                 <customfonts.MyTextView_Roboto_Regular
+                                    android:visibility="gone"
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="11.7sp"
@@ -363,30 +391,33 @@
                                     />
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:id="@+id/card_wallet"
-                                android:layout_width="wrap_content"
+                                android:layout_width="93dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_gravity="center_horizontal"
-                                android:gravity="center_horizontal">
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:orientation="vertical">
+
                                 <ImageView
+                                    android:layout_gravity="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/topup_wallet"
-                                    />
+                                    android:src="@drawable/topup_wallet" />
+
                                 <customfonts.MyTextView_Roboto_Regular
+                                    android:layout_gravity="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="11.7sp"
                                     android:layout_marginTop="13.3dp"
                                     android:fontFamily="sans-serif"
-                                    android:textStyle="normal"
-                                    android:textColor="@color/black_txt"
                                     android:gravity="center_horizontal"
                                     android:text="Topup Wallet"
-                                    />
+                                    android:textColor="@color/black_txt"
+                                    android:textSize="11.7sp"
+                                    android:textStyle="normal" />
 
                             </LinearLayout>
                         </LinearLayout>

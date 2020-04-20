@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ public class ActivityData extends AppCompatActivity {
 
     ViewDialog viewDialog;
     SessionHandlerUser sessionHandlerUser;
-    private String servicename, phoneid, dataid, datatype;
+    private String servicename, service_category_id, phoneid, dataid, datatype;
 
     private String orderid, type, ref, data;
     private int amounttobepaid;
@@ -64,11 +65,22 @@ public class ActivityData extends AppCompatActivity {
     ArrayList<String> _amount = new ArrayList<String>();
 
 
+    ImageView back;
+    TextView txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
         btn_continue = findViewById(R.id.btn_continue);
+        txt= findViewById(R.id.txt);
+        back= findViewById(R.id.back);
+        txt.setText("Data Bundles");
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         data_list = new ArrayList<>();
@@ -128,29 +140,28 @@ public class ActivityData extends AppCompatActivity {
             }
         });
         text_lyt.setText("MTN Data Bundles");
-        servicename = "mtn-data";
+        servicename = "mtn";
         LoadSpinnerData(servicename);
-        phoneid = "316";
-        dataid = "317";
+        service_category_id = "30";
         lyt_mtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 text_lyt.setText("MTN Data Budnles");
-                servicename = "mtn-data";
+                servicename = "mtn";
                 LoadSpinnerData(servicename);
-                phoneid = "316";
-                dataid = "317";
+                service_category_id = "30";
+
             }
         });
 
         lyt_glo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                text_lyt.setText("GLO Data Budnles ");
-                servicename = "glo-data";
+                text_lyt.setText("GLO Data Budnles");
+                servicename = "glo";
                 LoadSpinnerData(servicename);
-                phoneid = "318";
-                dataid = "319";
+                service_category_id = "29";
+
             }
         });
 
@@ -158,10 +169,10 @@ public class ActivityData extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 text_lyt.setText("9MOBILE Data Bundles");
-                servicename = "etisalat-data";
+                servicename = "9mobile";
                 LoadSpinnerData(servicename);
-                phoneid = "322";
-                dataid = "323";
+                service_category_id = "29";
+
 
             }
         });
@@ -170,10 +181,9 @@ public class ActivityData extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 text_lyt.setText("AIRTEL Airtime VTU");
-                servicename = "airtel-data";
+                servicename = "airtel";
                 LoadSpinnerData(servicename);
-                phoneid = "320";
-                dataid = "321";
+                service_category_id = "29";
             }
         });
     }
@@ -181,18 +191,18 @@ public class ActivityData extends AppCompatActivity {
     private void LoadSpinnerData(String t) {
         viewDialog.showDialog();
         RequestQueue requestQueue=Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, "https://paymable.ng/json/" + t + ".json", new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, "https://paymable.ng/rubies_json/" + t + "-data.json", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 viewDialog.hideDialog();
                 try{
                     JSONObject jsonObject=new JSONObject(response);
 //                    if(jsonObject.getInt("success")==1){
-                        JSONArray jsonArray=jsonObject.getJSONArray("agentServiceDropdownData");
+                        JSONArray jsonArray=jsonObject.getJSONArray("productcategories");
                         for(int i=0;i<jsonArray.length();i++){
                             JSONObject jsonObject1=jsonArray.getJSONObject(i);
-                            String value=jsonObject1.getString("value");
-                            String id=jsonObject1.getString("id");
+                            String value=jsonObject1.getString("name");
+                            String id=jsonObject1.getString("bundleCode");
                             String amount=jsonObject1.getString("amount");
                             _ids.add(id);
                             _amount.add(amount);

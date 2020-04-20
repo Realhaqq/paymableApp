@@ -30,6 +30,7 @@
         <activity android:name=".ActivityData"/>
         <activity android:name=".ActivityElectricity"/>
         <activity android:name=".ActivityTv"/>
+        <activity android:name=".ActivityWalletPayCard"/>
         <activity android:name="ng.paymable.LoginActivity" />
         <activity android:name="ng.paymable.ActivityPayCard" />
         <activity android:name="ng.paymable.SignupActivity" />
@@ -40,6 +41,9 @@
         <activity android:name="ng.paymable.ScanAndPayActivity" />
         <activity android:name="ng.paymable.HomePay2Activity" />
         <activity android:name="ng.paymable.OfferActivity" />
+        <activity android:name=".WalletPaymetWeb"/>
+        <activity android:name=".AddCardPaymetWeb"/>
+        <activity android:name=".ActivityPayCardWeb"/>
         <activity android:name="ng.paymable.MyTransactionActivity" />
         <activity android:name="ng.paymable.AddNewCardActivity"/>
         <activity android:name="ng.paymable.ActivityAirtime"/>

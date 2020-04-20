@@ -3,18 +3,15 @@ package ng.paymable;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,15 +26,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
 
 import ng.paymable.others.MySingleton;
-import ng.paymable.others.RequestHandler;
 import ng.sessions.SessionHandlerUser;
 
 public class ActivityAirtime extends AppCompatActivity {
@@ -55,7 +47,8 @@ public class ActivityAirtime extends AppCompatActivity {
     private String orderid, type, ref, data;
     private int amounttobepaid;
 
-
+    ImageView back;
+    TextView txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +56,15 @@ public class ActivityAirtime extends AppCompatActivity {
         btn_continue = findViewById(R.id.btn_continue);
 
 
+        txt= findViewById(R.id.txt);
+        back= findViewById(R.id.back);
+        txt.setText("Airtime");
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         viewDialog = new ViewDialog(this);
         sessionHandlerUser = new SessionHandlerUser(getApplicationContext());
 
@@ -85,21 +87,24 @@ public class ActivityAirtime extends AppCompatActivity {
 
 
 
-                CheckOrder(amount.getText().toString(), phone.getText().toString());
+//                CheckOrder(amount.getText().toString(), phone.getText().toString());
+
+                displayDialog(amount.getText().toString(), phone.getText().toString(), servicename);
+
 //                CreateOrder(amount.getText().toString(), phone.getText().toString());
             }
         });
         text_lyt.setText("MTN Airtime VTU");
-        servicename = "mtn";
-        phoneid = "293";
-        amountid = "294";
+        servicename = "MTN";
+//        phoneid = "293";
+//        amountid = "294";
         lyt_mtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 text_lyt.setText("MTN Airtime VTU");
                 servicename = "mtn";
-                phoneid = "293";
-                amountid = "294";
+//                phoneid = "293";
+//                amountid = "294";
             }
         });
 
@@ -107,9 +112,9 @@ public class ActivityAirtime extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 text_lyt.setText("GLO Airtime VTU");
-                servicename = "glo";
-                phoneid = "295";
-                amountid = "296";
+                servicename = "GLO";
+//                phoneid = "295";
+//                amountid = "296";
             }
         });
 
@@ -117,9 +122,9 @@ public class ActivityAirtime extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 text_lyt.setText("9MOBILE Airtime VTU");
-                servicename = "etisalat";
-                phoneid = "297";
-                amountid = "298";
+                servicename = "9MOBILE";
+//                phoneid = "297";
+//                amountid = "298";
 
             }
         });
@@ -128,15 +133,15 @@ public class ActivityAirtime extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 text_lyt.setText("AIRTEL Airtime VTU");
-                servicename = "airtel";
-                phoneid = "299";
-                amountid = "300";
+                servicename = "AIRTEL";
+//                phoneid = "299";
+//                amountid = "300";
             }
         });
     }
 
 
-    private void displayDialog(final String orderid, String type, final String ref, final int amounttobepaid, String data)
+    private void displayDialog(final String amountt, final String phone, final String servicename)
     {
         final Dialog d=new Dialog(ActivityAirtime.this);
         d.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
@@ -153,8 +158,9 @@ public class ActivityAirtime extends AppCompatActivity {
         TextView amount, datta;
         amount = d.findViewById(R.id.amount);
         datta = d.findViewById(R.id.textdata);
-        amount.setText("AMOUNT:   ₦" + amounttobepaid);
-        datta.setText("DATA:   " + data);
+        amount.setText("AMOUNT:   ₦" + amountt);
+        datta.setText("DATA:   " + phone);
+
         d.findViewById(R.id.lyt_wallet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,8 +168,7 @@ public class ActivityAirtime extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Insufficient Wallet Balance", Toast.LENGTH_LONG).show();
                 }else{
                     d.dismiss();
-                    ProcessOrder(orderid, ref, amounttobepaid);
-//                    Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
+                    ProcessOrder(amountt, phone, servicename);
 
                 }
             }
@@ -173,10 +178,13 @@ public class ActivityAirtime extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 d.dismiss();
-                Intent intent = new Intent(ActivityAirtime.this, ActivityPayCard.class);
+                int amount = amounttobepaid;
+                Intent intent = new Intent(ActivityAirtime.this,ActivityPayCard.class);
                 intent.putExtra("orderid", orderid);
                 intent.putExtra("ref", ref);
-                intent.putExtra("amount", amounttobepaid);
+                intent.putExtra("myamount", String.valueOf(amounttobepaid));
+                intent.putExtra("amount", String.valueOf(amounttobepaid));
+//                intent.putExtra("myamount", );
                 intent.putExtra("userid", sessionHandlerUser.getUserDetail().getUserid());
                 startActivity(intent);
 
@@ -194,103 +202,64 @@ public class ActivityAirtime extends AppCompatActivity {
     }
 
 
+//
+//    private void CheckOrder(String amount, String phone) {
+//        viewDialog.showDialog();
+//        Intent intent = getIntent();
+//        String url_ = Config.url+"kobopay/init.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&servicename=" + servicename + "&phoneid="+ phoneid + "&amountid="+ amountid + "&amount=" + amount + "&phone=" + phone;
+//        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+//        StringRequest stringRequest=new StringRequest(Request.Method.GET, url_, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                viewDialog.hideDialog();
+//                try{
+//                    JSONObject jsonObject=new JSONObject(response);
+//
+//                    if (jsonObject.getInt("status") == 0) {
+//                        orderid = jsonObject.getString("orderid");
+//                        type = jsonObject.getString("type");
+//                        ref = jsonObject.getString("ref");
+//                        data = jsonObject.getString("ddata");
+//                        amounttobepaid = Integer.parseInt(jsonObject.getString("amount"));
+////                        Toast.makeText(getApplicationContext(), "message2" +  jsonObject.getString("amount"), Toast.LENGTH_LONG).show();
+//
+//                        displayDialog(orderid, type, ref, amounttobepaid, data);
+//                    } else if(jsonObject.getInt("status") == 1) {
+//
+//                        ViewDialogAlert alert = new ViewDialogAlert();
+//                        alert.showDialog(ActivityAirtime.this, jsonObject.getString("message"));
+//
+////                                Toast.makeText(getApplicationContext(), "message2" +  response.getString("message"), Toast.LENGTH_LONG).show();
+//                    }else{
+//
+//                        ViewDialogAlert alert = new ViewDialogAlert();
+//                        alert.showDialog(ActivityAirtime.this, jsonObject.getString("message"));
+//
+////                                Toast.makeText(getApplicationContext(), "message" +  response.getString("message"), Toast.LENGTH_LONG).show();
+//                    }
+//
+//                }catch (JSONException e){e.printStackTrace();}
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//                viewDialog.hideDialog();
+//
+//            }
+//        });
+//        int socketTimeout = 30000;
+//        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+//        stringRequest.setRetryPolicy(policy);
+//        requestQueue.add(stringRequest);
+//    }
+//
+//
 
-    private void CheckOrder(String amount, String phone) {
+    private void ProcessOrder(String amount, String phone, String servicename){
         viewDialog.showDialog();
         Intent intent = getIntent();
-        String url_ = Config.url+"kobopay/init.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&servicename=" + servicename + "&phoneid="+ phoneid + "&amountid="+ amountid + "&amount=" + amount + "&phone=" + phone;
-        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, url_, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                viewDialog.hideDialog();
-                try{
-                    JSONObject jsonObject=new JSONObject(response);
-
-                    if (jsonObject.getInt("status") == 0) {
-                        orderid = jsonObject.getString("orderid");
-                        type = jsonObject.getString("type");
-                        ref = jsonObject.getString("ref");
-                        data = jsonObject.getString("ddata");
-                        amounttobepaid = Integer.parseInt(jsonObject.getString("amount"));
-//                        Toast.makeText(getApplicationContext(), "message2" +  jsonObject.getString("amount"), Toast.LENGTH_LONG).show();
-
-                        displayDialog(orderid, type, ref, amounttobepaid, data);
-                    } else if(jsonObject.getInt("status") == 1) {
-
-                        ViewDialogAlert alert = new ViewDialogAlert();
-                        alert.showDialog(ActivityAirtime.this, jsonObject.getString("message"));
-
-//                                Toast.makeText(getApplicationContext(), "message2" +  response.getString("message"), Toast.LENGTH_LONG).show();
-                    }else{
-
-                        ViewDialogAlert alert = new ViewDialogAlert();
-                        alert.showDialog(ActivityAirtime.this, jsonObject.getString("message"));
-
-//                                Toast.makeText(getApplicationContext(), "message" +  response.getString("message"), Toast.LENGTH_LONG).show();
-                    }
-
-                }catch (JSONException e){e.printStackTrace();}
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                viewDialog.hideDialog();
-
-            }
-        });
-        int socketTimeout = 30000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        stringRequest.setRetryPolicy(policy);
-        requestQueue.add(stringRequest);
-    }
-
-
-
-
-    private void CreateOrder(final String amount, final String phone) {
-        class chargee extends AsyncTask<Bitmap,Void,String> {
-
-            RequestHandler rh = new RequestHandler();
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-
-                Log.d("mess", s);
-            }
-
-            @Override
-            protected String doInBackground(Bitmap... params) {
-                HashMap<String,String> data = new HashMap<>();
-                data.put("servicename", servicename);
-                data.put("phoneid", phoneid);
-                data.put("amountid", amountid);
-                data.put("phone", phone);
-                data.put("amount", amount);
-                data.put("userid", String.valueOf(sessionHandlerUser.getUserDetail().getUserid()));
-                String result = rh.sendPostRequest(Config.url + "kobopay/init2.php",data);
-
-                return result;
-            }
-        }
-
-        chargee ui = new chargee();
-        ui.execute();
-    }
-
-
-
-    private void ProcessOrder(String orderid, String ref, int amount){
-        viewDialog.showDialog();
-        Intent intent = getIntent();
-        String url_ = Config.url+"kobopay/kobo_process.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&orderid=" + orderid + "&ref=" + ref + "&amount=" + amount;
+        String url_ = Config.url+"rubies/airtime_process.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&product=" + servicename + "&phone=" + phone + "&amount=" + amount;
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url_, new Response.Listener<String>() {
             @Override

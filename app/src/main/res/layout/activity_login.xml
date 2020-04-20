@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".LoginActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,6 +42,7 @@
             android:textColor="@color/black_txt_Color"
             android:textSize="15sp"
             android:textStyle="normal" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,14 +138,15 @@
                 android:textSize="13.3sp"
                 android:fontFamily="sans-serif"
                 android:textStyle="normal"
-                android:textColor="@color/bg_blue"
+                android:textColor="@color/black"
                 android:gravity="center_horizontal"
                 android:text="Sign up"
                 android:layout_marginLeft="5dp"
                 />
         </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
 
-    </LinearLayout>
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

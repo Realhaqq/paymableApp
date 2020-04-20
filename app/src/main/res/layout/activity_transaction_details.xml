@@ -37,6 +37,7 @@
                         android:text="@string/transaction_id"
                         />
                     <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/orderid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
@@ -57,6 +58,7 @@
                         android:text="@string/transacted_on"
                         />
                     <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/ondate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
@@ -100,9 +102,10 @@
                         android:fontFamily="sans-serif"
                         android:textStyle="normal"
                         android:textColor="@color/geryTxt"
-                        android:text="@string/mobile_recharged"
+                        android:text="Transaction Data"
                         />
                     <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
@@ -121,6 +124,7 @@
                     android:layout_gravity="center_vertical"
                     android:paddingRight="20dp">
                     <customfonts.MyTextView_Roboto_Medium
+                        android:id="@+id/amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18.3sp"
@@ -131,6 +135,7 @@
                         android:text="@string/_50"
                         />
                     <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="10sp"
@@ -166,12 +171,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="10dp">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/visa"
-                        android:layout_gravity="center_vertical"/>
+
                     <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"

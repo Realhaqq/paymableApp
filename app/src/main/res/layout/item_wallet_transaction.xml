@@ -10,17 +10,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="11.3dp">
+
         <ImageView
+            android:id="@+id/iconImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
-            android:id="@+id/iconImage"
-            android:src="@drawable/mobile_1"/>
+            android:src="@drawable/wallet" />
         <customfonts.MyTextView_Roboto_Regular
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:id="@+id/billName"
+            android:id="@+id/transaction_type"
             android:layout_weight="1"
             android:layout_marginLeft="14dp"
             android:layout_gravity="center_vertical"
@@ -50,7 +51,7 @@
         android:fontFamily="sans-serif"
         android:textStyle="normal"
         android:paddingLeft="63.7dp"
-        android:id="@+id/phnNo"
+        android:id="@+id/ondate"
         android:textColor="@color/geryTxt"
         android:text="@string/_9382332131"
         />

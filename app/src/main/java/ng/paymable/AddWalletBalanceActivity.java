@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,6 +65,8 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
     RecyclerView.Adapter recylerViewAdapter;
     private SaveCardAdapter bAdapter;
 
+    TextView new_card;
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +91,14 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
 
         txt=findViewById(R.id.txt);
 
-        txt.setText("Wallet");
+        txt.setText("Add Wallet Balance");
+        back= findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         findViewById(R.id.btn_add).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,153 +116,6 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
         });
 
 
-//        one.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//                number = number +"1";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//            }
-//        });
-//        two.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                nos= (String) two.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"2";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//            }
-//        });
-//        three.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                nos= (String) three.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"3";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//
-//            }
-//        });
-//        four.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                nos= (String) four.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"4";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//
-//            }
-//        });
-//        five.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                nos= (String) five.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"5";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//
-//            }
-//        });
-//        six.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                nos= (String) six.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"6";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//
-//            }
-//        });
-//        seven.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                nos= (String) seven.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"7";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//            }
-//        });
-//        eight.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                nos= (String) eight.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"8";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//
-//            }
-//        });
-//        nine.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                nos= (String) nine.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"9";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//
-//            }
-//        });
-//        zero.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                nos= (String) zero.getText();
-//                edtxt.setText(nos);
-//
-//                number = number +"0";
-//                edtxt.setText(number);
-//                Log.e("number", number);
-//
-//
-//            }
-//        });
-//        clear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                try {
-//                    number = number.substring(0, number.length() - 1);
-//
-//                    edtxt.setText(number);
-//                }catch (Exception e){
-//
-//                }
-//
-////                if (number != null && number.length() > 0 && number.charAt(number.length() - 1) == 'x') {
-////                    number = number.substring(0, number.length() - 1);
-////
-////                    edtxt.setText(number);
-////                }
-//            }
-//        });
 
         bottom_sheet = findViewById(R.id.bottom_sheet);
         mBehavior = BottomSheetBehavior.from(bottom_sheet);
@@ -276,6 +139,30 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
             mBottomSheetDialog.hide();
         }
     });
+
+
+
+
+    new_card = view.findViewById(R.id.user_new_card);
+
+    new_card.setVisibility(View.GONE);
+    new_card.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getApplicationContext(), WalletPaymetWeb.class);
+            intent.putExtra("amount", edtxt.getText().toString());
+            startActivity(intent);
+            finish();
+        }
+    });
+//
+//        (view.findViewById(R.id.user_new_card)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
 
         recyclerView = view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -305,11 +192,13 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
 
         }));
 
+
     mBottomSheetDialog = new BottomSheetDialog(this);
     mBottomSheetDialog.setContentView(view);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         mBottomSheetDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
+
 
     // set background transparent
     ((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
@@ -334,12 +223,15 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
         jsonArrayRequest = new JsonArrayRequest(Config.url + "cards.php?userid=" + sessionHandlerUser.getUserDetail().getEmail(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                new_card.setVisibility(View.VISIBLE);
                 viewDialog.hideDialog();
                 GetCardWebCall(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                new_card.setVisibility(View.VISIBLE);
 
                 viewDialog.hideDialog();
             }
@@ -388,7 +280,7 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                viewDialog.hideDialog();
+//                viewDialog.hideDialog();
             }
 
             @Override

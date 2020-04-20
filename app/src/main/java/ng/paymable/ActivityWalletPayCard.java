@@ -10,10 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +42,7 @@ import ng.paymable.others.MySingleton;
 import ng.paymable.others.RequestHandler;
 import ng.sessions.SessionHandlerUser;
 
-public class ActivityPayCard extends AppCompatActivity {
+public class ActivityWalletPayCard extends AppCompatActivity {
 
 
     ViewDialog viewDialog;
@@ -66,7 +64,7 @@ public class ActivityPayCard extends AppCompatActivity {
 
         txt= findViewById(R.id.txt);
         back= findViewById(R.id.back);
-        txt.setText("Pay With Credit Card");
+        txt.setText("Deposit With Credit Card");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +72,7 @@ public class ActivityPayCard extends AppCompatActivity {
             }
         });
 
-        if (co.paystack.android.BuildConfig.DEBUG && (Config.paystack_saver_url.equals(""))) {
+        if (BuildConfig.DEBUG && (Config.paystack_saver_url.equals(""))) {
             throw new AssertionError("Please set a backend url before running the sample");
         }
         if (BuildConfig.DEBUG && (Config.paystack_public_key.equals(""))) {
@@ -126,6 +124,8 @@ public class ActivityPayCard extends AppCompatActivity {
             charge.setEmail(sessionHandlerUser.getUserDetail().getEmail());
             charge.setReference("ChargedFromAndroid_" + Calendar.getInstance().getTimeInMillis());
             try {
+                charge.setAmount(Integer.parseInt(getIntent().getStringExtra("amount")));
+                charge.setEmail(sessionHandlerUser.getUserDetail().getEmail());
                 charge.putCustomField("Charged From", "Android SDK");
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -143,6 +143,7 @@ public class ActivityPayCard extends AppCompatActivity {
      * Method to validate the form, and set errors on the edittexts.
      */
     private Card loadCardFromForm() {
+//        viewDialog.showDialog();
         //validate fields
         Card card;
 
@@ -184,12 +185,12 @@ public class ActivityPayCard extends AppCompatActivity {
 //        }
 //        dialog = null;
 
-//        viewDialog.hideDialog();
+        viewDialog.hideDialog();
     }
 
     private void chargeCard() {
         transaction = null;
-//        viewDialog.showDialog();
+        viewDialog.showDialog();
         PaystackSdk.chargeCard(this, charge, new Paystack.TransactionCallback() {
             // This is called only after transaction is successful
             @Override
@@ -202,6 +203,8 @@ public class ActivityPayCard extends AppCompatActivity {
 //                mTextError.setText(" ");
 //                Toast.makeText(getApplicationContext(), transaction.getReference(), Toast.LENGTH_LONG).show();
 //                updateTextViews();
+
+                Log.d("ttt", transaction.getReference());
 
                 VerifyRef(transaction.getReference());
 
@@ -226,7 +229,7 @@ public class ActivityPayCard extends AppCompatActivity {
             public void onError(Throwable error, Transaction transaction) {
 
                 ViewDialogAlert alert = new ViewDialogAlert();
-                alert.showDialog(ActivityPayCard.this, "Transaction Error, Please try again");
+                alert.showDialog(ActivityWalletPayCard.this, "Transaction Error, Please try again");
                 finish();
                 // If an access code has expired, simply ask your server for a new one
                 // and restart the charge instead of displaying error
@@ -254,47 +257,6 @@ public class ActivityPayCard extends AppCompatActivity {
         });
     }
 
-    private void ProcessOrder(String orderid, String ref, String amount, String userid) {
-        viewDialog.showDialog();
-        Intent intent = getIntent();
-        String url_ = Config.url+"kobopay/card_process.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&orderid=" + orderid + "&ref=" + ref + "&amount=" + amount;
-
-        Log.d("uttt", url_);
-        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, url_, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                viewDialog.hideDialog();
-
-                try{
-                    JSONObject jsonObject=new JSONObject(response);
-
-                    if (jsonObject.getInt("status") == 0) {
-                        ViewDialogAlert alert = new ViewDialogAlert();
-                        alert.showDialog(ActivityPayCard.this, jsonObject.getString("message"));
-                        finish();
-                    } else{
-                        ViewDialogAlert alert = new ViewDialogAlert();
-                        alert.showDialog(ActivityPayCard.this, jsonObject.getString("message"));
-                        finish();
-                    }
-
-                }catch (JSONException e){e.printStackTrace();}
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                viewDialog.hideDialog();
-
-                error.printStackTrace();
-            }
-        });
-        int socketTimeout = 30000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        stringRequest.setRetryPolicy(policy);
-        requestQueue.add(stringRequest);
-
-    }
 
 
 
@@ -323,15 +285,19 @@ public class ActivityPayCard extends AppCompatActivity {
                 toast.setView(layout);
                 toast.show();
 
-                if(s.contains("success")){
-                    String orderid, ref, amount, userid;
+                Intent intent = new Intent(getApplicationContext(), HomePay2Activity.class);
+                startActivity(intent);
+                finish();
 
-                    orderid = getIntent().getStringExtra("orderid");
-                    ref = getIntent().getStringExtra("ref");
-                    amount = getIntent().getStringExtra("amount");
-                    userid = getIntent().getStringExtra("userid");
-                    ProcessOrder(orderid, ref, amount, userid);
-                }
+//                if(s.contains("success")){
+//                    String orderid, ref, amount, userid;
+//
+//                    orderid = getIntent().getStringExtra("orderid");
+//                    ref = getIntent().getStringExtra("ref");
+//                    amount = getIntent().getStringExtra("amount");
+//                    userid = getIntent().getStringExtra("userid");
+//                    ProcessOrder(orderid, ref, amount, userid);
+//                }
 
             }
 
@@ -343,7 +309,7 @@ public class ActivityPayCard extends AppCompatActivity {
                 data.put("userid", String.valueOf(sessionHandlerUser.getUserDetail().getUserid()));
                 data.put("email", sessionHandlerUser.getUserDetail().getEmail());
 
-                String result = rh.sendPostRequest(Config.url + "pay/pay_card_verify.php",data);
+                String result = rh.sendPostRequest(Config.url + "pay/wallet_card_verify.php?ref=" + reference,data);
 
                 return result;
             }
