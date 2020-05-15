@@ -84,27 +84,30 @@ public class ActivityAirtime extends AppCompatActivity {
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String pphone = phone.getText().toString();
+                String aamount = amount.getText().toString();
+                if (pphone.isEmpty()) {
+                    phone.setError("Enter Phone Number");
+                    phone.requestFocus();
+                }else if(aamount.isEmpty()){
+                    amount.setError("Enter Amount");
+                    amount.requestFocus();
+                }
 
+                else {
+                    displayDialog(aamount, pphone, servicename);
 
+                }
 
-//                CheckOrder(amount.getText().toString(), phone.getText().toString());
-
-                displayDialog(amount.getText().toString(), phone.getText().toString(), servicename);
-
-//                CreateOrder(amount.getText().toString(), phone.getText().toString());
             }
         });
         text_lyt.setText("MTN Airtime VTU");
         servicename = "MTN";
-//        phoneid = "293";
-//        amountid = "294";
         lyt_mtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 text_lyt.setText("MTN Airtime VTU");
                 servicename = "mtn";
-//                phoneid = "293";
-//                amountid = "294";
             }
         });
 
@@ -113,8 +116,7 @@ public class ActivityAirtime extends AppCompatActivity {
             public void onClick(View view) {
                 text_lyt.setText("GLO Airtime VTU");
                 servicename = "GLO";
-//                phoneid = "295";
-//                amountid = "296";
+
             }
         });
 
@@ -123,9 +125,6 @@ public class ActivityAirtime extends AppCompatActivity {
             public void onClick(View view) {
                 text_lyt.setText("9MOBILE Airtime VTU");
                 servicename = "9MOBILE";
-//                phoneid = "297";
-//                amountid = "298";
-
             }
         });
 
@@ -134,8 +133,6 @@ public class ActivityAirtime extends AppCompatActivity {
             public void onClick(View view) {
                 text_lyt.setText("AIRTEL Airtime VTU");
                 servicename = "AIRTEL";
-//                phoneid = "299";
-//                amountid = "300";
             }
         });
     }
@@ -200,61 +197,6 @@ public class ActivityAirtime extends AppCompatActivity {
         d.show();
         d.getWindow().setAttributes(lp);
     }
-
-
-//
-//    private void CheckOrder(String amount, String phone) {
-//        viewDialog.showDialog();
-//        Intent intent = getIntent();
-//        String url_ = Config.url+"kobopay/init.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&servicename=" + servicename + "&phoneid="+ phoneid + "&amountid="+ amountid + "&amount=" + amount + "&phone=" + phone;
-//        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
-//        StringRequest stringRequest=new StringRequest(Request.Method.GET, url_, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                viewDialog.hideDialog();
-//                try{
-//                    JSONObject jsonObject=new JSONObject(response);
-//
-//                    if (jsonObject.getInt("status") == 0) {
-//                        orderid = jsonObject.getString("orderid");
-//                        type = jsonObject.getString("type");
-//                        ref = jsonObject.getString("ref");
-//                        data = jsonObject.getString("ddata");
-//                        amounttobepaid = Integer.parseInt(jsonObject.getString("amount"));
-////                        Toast.makeText(getApplicationContext(), "message2" +  jsonObject.getString("amount"), Toast.LENGTH_LONG).show();
-//
-//                        displayDialog(orderid, type, ref, amounttobepaid, data);
-//                    } else if(jsonObject.getInt("status") == 1) {
-//
-//                        ViewDialogAlert alert = new ViewDialogAlert();
-//                        alert.showDialog(ActivityAirtime.this, jsonObject.getString("message"));
-//
-////                                Toast.makeText(getApplicationContext(), "message2" +  response.getString("message"), Toast.LENGTH_LONG).show();
-//                    }else{
-//
-//                        ViewDialogAlert alert = new ViewDialogAlert();
-//                        alert.showDialog(ActivityAirtime.this, jsonObject.getString("message"));
-//
-////                                Toast.makeText(getApplicationContext(), "message" +  response.getString("message"), Toast.LENGTH_LONG).show();
-//                    }
-//
-//                }catch (JSONException e){e.printStackTrace();}
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//                viewDialog.hideDialog();
-//
-//            }
-//        });
-//        int socketTimeout = 30000;
-//        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-//        stringRequest.setRetryPolicy(policy);
-//        requestQueue.add(stringRequest);
-//    }
-//
-//
 
     private void ProcessOrder(String amount, String phone, String servicename){
         viewDialog.showDialog();

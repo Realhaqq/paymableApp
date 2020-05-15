@@ -109,20 +109,9 @@
                             android:textStyle="normal" />
                     </LinearLayout>
 
-                    <customfonts.MyTextView_Roboto_Regular
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16.7dp"
-                        android:layout_marginTop="16.7dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/edit"
-                        android:textColor="@color/geryTxt"
-                        android:textSize="11.7sp"
-                        android:textStyle="normal" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/card_save_cards"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="11.7dp"
@@ -130,6 +119,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/card_save_cards"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -160,6 +150,7 @@
                         android:background="#ececec" />
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"

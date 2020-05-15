@@ -111,6 +111,7 @@ public class ActivityElectricity extends AppCompatActivity {
 
 
                 String aamount = amount.getText().toString();
+                int a = Integer.parseInt(amount.getText().toString());
                 String meter = meterno.getText().toString();
 
 
@@ -120,7 +121,11 @@ public class ActivityElectricity extends AppCompatActivity {
                 }else if(aamount.isEmpty()) {
                     amount.setError("Enter Phone Number");
                     amount.requestFocus();
-                }else {
+                }else if (a < 500){
+                    Toast.makeText(getApplicationContext(), "Minimum Amount is 500 Naira", Toast.LENGTH_LONG).show();
+
+                }  else
+                 {
                     CheckOrder(aamount, meter);
                 }
             }

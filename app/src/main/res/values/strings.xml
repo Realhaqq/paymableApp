@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Paymable</string>
-    <string name="app_name1">Scan &amp; Pay</string>
     <string name="send_money">Send Money</string>
     <string name="recharges_amp_pay_bills"><![CDATA[Recharges & Pay Bills]]></string>
     <string name="scan_pay">Scan Pay2 or any QR</string>
@@ -17,8 +16,6 @@
     <string name="_9382332131">9382332131</string>
     <string name="debited_from">Debited from</string>
     <string name="add_wallet_balance">Add Wallet Balance</string>
-    <string name="_250">$ 250</string>
-    <string name="bank_name">Bank Name</string>
     <string name="_4029_1213">4029 **** **** 1213</string>
     <string name="_01_21">01/21</string>
     <string name="cc">Credit Card</string>
@@ -44,26 +41,12 @@
     <string name="need_help_about_this_transaction">Need help about this transaction?</string>
     <string name="_1700_xxxx_xxxx_1982">1700 xxxx xxxx 1982</string>
     <string name="sign_in">Sign in</string>
-    <string name="login_with_google">Login with Google</string>
     <string name="shop_not_accepting_pay2_refer_shop">Shop not accepting Pay2? Refer Shop</string>
 
 
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="card_number">Card number</string>
     <string name="cvv">CVV</string>
     <string name="mm">MM</string>
     <string name="yyyy">YYYY</string>
-    <string name="create_token">Create token</string>
-    <string name="no_card_yet">No card yet</string>
-    <string name="no_token">No token</string>
-    <string name="token_null_message">Token was null</string>
-    <string name="token_not_gotten">Unable to get token</string>
-    <string name="sample_card">4123450131001381</string>
-    <string name="sample_cvv">883</string>
-    <string name="sample_month">01</string>
-    <string name="sample_year">2020</string>
     <string name="no_transaction_yet">No transaction yet</string>
-    <string name="amount_in_kobo">Amount in Kobo</string>
 </resources>

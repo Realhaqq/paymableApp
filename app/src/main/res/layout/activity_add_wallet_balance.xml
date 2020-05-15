@@ -88,17 +88,7 @@
                     android:layout_marginTop="25.3dp">
 
                 <customfonts.MyTextView_Roboto_Regular
-                    android:layout_width="59.7dp"
-                    android:layout_height="23.3dp"
-                    android:background="@drawable/rect"
-                    android:textSize="13.3sp"
-                    android:fontFamily="sans-serif"
-                    android:layout_marginRight="10dp"
-                    android:textStyle="normal"
-                    android:textColor="@color/light_grey_txt"
-                    android:gravity="center_horizontal"
-                    android:text="50"/>
-                <customfonts.MyTextView_Roboto_Regular
+                    android:id="@+id/hundred"
                     android:layout_width="59.7dp"
                     android:layout_height="23.3dp"
                     android:background="@drawable/rect"
@@ -109,7 +99,20 @@
                     android:textColor="@color/light_grey_txt"
                     android:gravity="center_horizontal"
                     android:text="100"/>
+                <customfonts.MyTextView_Roboto_Regular
+                    android:id="@+id/fivehundress"
+                    android:layout_width="59.7dp"
+                    android:layout_height="23.3dp"
+                    android:background="@drawable/rect"
+                    android:textSize="13.3sp"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginRight="10dp"
+                    android:textStyle="normal"
+                    android:textColor="@color/light_grey_txt"
+                    android:gravity="center_horizontal"
+                    android:text="500"/>
                     <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/onethousand"
                         android:layout_width="59.7dp"
                         android:layout_height="23.3dp"
                         android:background="@drawable/rect"
@@ -119,8 +122,9 @@
                         android:textStyle="normal"
                         android:textColor="@color/light_grey_txt"
                         android:gravity="center_horizontal"
-                        android:text="150"/>
+                        android:text="1000"/>
                     <customfonts.MyTextView_Roboto_Regular
+                        android:id="@+id/fivethousand"
                         android:layout_width="59.7dp"
                         android:layout_height="23.3dp"
                         android:background="@drawable/rect"
@@ -130,7 +134,7 @@
                         android:textStyle="normal"
                         android:textColor="@color/light_grey_txt"
                         android:gravity="center_horizontal"
-                        android:text="200"/>
+                        android:text="5000"/>
 
                 </LinearLayout>
             </LinearLayout>

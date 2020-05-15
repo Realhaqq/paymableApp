@@ -7,15 +7,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,8 +55,55 @@ public class WalletPaymetWeb extends AppCompatActivity {
         settings.setDomStorageEnabled(true);
         wvPayment.loadUrl(url);
         wvPayment.setWebViewClient(new SSLTolerentWebViewClient());
+
+        wvPayment.setWebChromeClient(new WebChromeClient(){
+
+            // popup webview!
+            @Override
+            public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, final Message resultMsg) {
+                final WebView newWebView = new WebView(WalletPaymetWeb.this);
+                newWebView.getSettings().setJavaScriptEnabled(true);
+                newWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+                newWebView.getSettings().setSupportMultipleWindows(true);
+                newWebView.getSettings().setDomStorageEnabled(true);
+                newWebView.getSettings().setAllowFileAccess(true);
+                newWebView.getSettings().setAllowContentAccess(true);
+                newWebView.getSettings().setAllowFileAccessFromFileURLs(true);
+                newWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+                newWebView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)); //making sure the popup opens full screen
+                view.addView(newWebView);
+                WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+                transport.setWebView(newWebView);
+                resultMsg.sendToTarget();
+
+                newWebView.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+                        return true;
+                    }
+                });
+                newWebView.setWebChromeClient(new WebChromeClient(){
+                    @Override
+                    public void onCloseWindow(WebView window) {
+                        super.onCloseWindow(window);
+                        if (newWebView !=null){
+                            wvPayment.removeView(newWebView);
+                        }
+                    }
+                });
+                return true;
+            }
+            @Override
+            public void onCloseWindow(WebView window) {
+                super.onCloseWindow(window);
+            }
+            });
+
         init();
-    }
+        }
+//        init();
+//    }
 
     private void init() {
         IVback = (ImageView) findViewById(R.id.IVback);
@@ -60,7 +111,11 @@ public class WalletPaymetWeb extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.click_event));
-                finish();
+                if (wvPayment.canGoBack()) {
+                    wvPayment.goBack();
+                }else{
+                    finish();
+                }
             }
         });
     }
@@ -70,28 +125,30 @@ public class WalletPaymetWeb extends AppCompatActivity {
         @Override
         public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
             super.onReceivedSslError(view, handler, error);
-            viewDialog.hideDialog();
+//            viewDialog.hideDialog();
             // this will ignore the Ssl error and will go forward to your site
             handler.proceed();
         }
 
+
+
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            viewDialog.showDialog();
+//            viewDialog.showDialog();
             // TODO Auto-generated method stub
             super.onPageStarted(view, url, favicon);
         }
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            viewDialog.showDialog();
+//            viewDialog.showDialog();
             view.loadUrl(url);
             return super.shouldOverrideUrlLoading(view, url);
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            viewDialog.hideDialog();
+//            viewDialog.hideDialog();
             ProjectUtils.pauseProgressDialog();
             //Page load finished
             if (url.equals(PAYMENT_SUCCESS)) {
@@ -126,7 +183,7 @@ public class WalletPaymetWeb extends AppCompatActivity {
                 super.onPageFinished(view, url);
             }
 
-            viewDialog.hideDialog();
+//            viewDialog.hideDialog();
 
 
 
@@ -160,20 +217,20 @@ public class WalletPaymetWeb extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    // This method is used to detect back button
-    public void onBackPressed() {
-        if(wvPayment.canGoBack()) {
-            wvPayment.goBack();
-        } else {
-            // Let the system handle the back button
-            setResult(RESULT_OK);
-            super.onBackPressed();
-
-        }
-    }
-
-
+//
+//    @Override
+//    // This method is used to detect back button
+//    public void onBackPressed() {
+////        if(wvPayment.canGoBack()) {
+//            wvPayment.goBack();
+////        } else {
+//            // Let the system handle the back button
+////            setResult(RESULT_OK);
+//            super.onBackPressed();
+//
+////        }
+//    }
+//
+//
 
 }

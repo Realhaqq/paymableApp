@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:fontFamily="sans-serif"
-                android:hint="Full Name"
+                android:hint="Fist Name - Surname"
                 android:singleLine="true"
                 android:paddingBottom="15.7dp"
                 android:paddingLeft="16.3dp"

@@ -118,10 +118,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginTop="45dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal">
+            android:layout_gravity="center_vertical"
+            android:gravity="center">
             <customfonts.MyTextView_Roboto_Regular
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,16 +131,17 @@
                 android:textColor="@color/black_txt_Color"
                 android:gravity="center_horizontal"
                 android:text="Don’t have an account?" />
+
             <customfonts.MyTextView_Roboto_Regular
                 android:id="@+id/txt_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="13.3sp"
+                android:textSize="14.3sp"
                 android:fontFamily="sans-serif"
-                android:textStyle="normal"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:gravity="center_horizontal"
-                android:text="Sign up"
+                android:text="CREATE NEW ACCOUNT"
                 android:layout_marginLeft="5dp"
                 />
         </LinearLayout>

@@ -2,7 +2,10 @@ package ng.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -93,8 +96,9 @@ public class WalletTransactionFragment extends Fragment implements SwipeRefreshL
                 startActivity(intent);
             }
         });
-
-        CheckBalance();
+        if (isNetworkAvailable() == true) {
+            CheckBalance();
+        }
 
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
 
@@ -111,7 +115,11 @@ public class WalletTransactionFragment extends Fragment implements SwipeRefreshL
         theaters_recycleview.setItemAnimator(new DefaultItemAnimator());
         GetTransactionsAdapter = new ArrayList<>();
 
-        GetTransactions();
+
+        if (isNetworkAvailable() == true) {
+            GetTransactions();
+        }
+
         theaters_recycleview.addOnItemTouchListener(new RecyclerTouchListener(getContext(), theaters_recycleview, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -236,6 +244,25 @@ public class WalletTransactionFragment extends Fragment implements SwipeRefreshL
         MySingleton.getInstance(getContext()).addToRequestQueue(jsArrayRequest);
     }
 
+
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        if (requestQueue != null) {
+            requestQueue.cancelAll(this);
+//        }
+
+    }
 
 
 

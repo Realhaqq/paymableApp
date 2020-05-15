@@ -7,8 +7,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'io.sentry:sentry-android-gradle-plugin:1.7.27'
+
 
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -17,6 +19,11 @@ buildscript {
 }
 
 allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:deprecation"
+        }
+    }
     repositories {
         google()
         jcenter()

@@ -19,6 +19,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.sentry.Sentry;
+import io.sentry.android.AndroidSentryClientFactory;
 import ng.paymable.others.MySingleton;
 
 public class SplashActivity extends AppCompatActivity {
@@ -34,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
 
         viewDialog = new ViewDialog(this);
 
+        Sentry.init("https://6ea4482e660a4a6e91519f77fdf84549@o287866.ingest.sentry.io/5242781", new AndroidSentryClientFactory(this));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

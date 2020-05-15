@@ -17,6 +17,7 @@
     </android.support.v7.widget.RecyclerView>
     </LinearLayout>
     <customfonts.MyTextView_Roboto_Regular
+        android:visibility="gone"
         android:id="@+id/add_new_card"
         android:layout_width="match_parent"
         android:layout_height="50dp"

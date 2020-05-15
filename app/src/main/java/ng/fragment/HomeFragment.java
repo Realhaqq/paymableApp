@@ -1,6 +1,7 @@
 package ng.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -27,6 +28,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,20 +52,26 @@ import ng.paymable.AddWalletBalanceActivity;
 import ng.paymable.HomePay2Activity;
 import ng.paymable.R;
 import ng.paymable.SaveCardsActivity;
+import ng.paymable.TransferMoneyActivity;
+import ng.paymable.ViewDialog;
 import ng.paymable.ViewPagerAdapter;
 import ng.paymable.others.MySingleton;
 import ng.paymable.others.SliderUtils;
 import ng.paymable.Config;
+import ng.sessions.SessionHandlerUser;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
 
+    SessionHandlerUser sessionHandlerUser;
+
+    ViewDialog viewDialog;
     private ViewPager viewPager;
     private ProfilePagerAdapter_walkthrough_01 profilePagerAdapterWalkthrough01;
 
-    LinearLayout card_wallet, card_airtime, card_data, card_elect, card_tv, card_waec, card_jamb;
+    LinearLayout card_wallet, card_airtime, card_data, card_elect, card_tv, card_waec, card_jamb, card_transfer;
 
 
     private ArrayList<GridModel> homeListModelClassArrayList1;
@@ -110,6 +118,13 @@ public class HomeFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_home, null);
 
+        viewDialog = new ViewDialog(getActivity());
+        sessionHandlerUser = new SessionHandlerUser(getContext());
+
+
+        if (isNetworkAvailable() == true) {
+            CheckVirtualBalance();
+        }
 
         help = view.findViewById(R.id.help);
         help.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +143,16 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        card_transfer = view.findViewById(R.id.card_transfer);
+        card_transfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TransferMoneyActivity.class);
+                startActivity(intent);
+            }
+        });
+
         card_airtime = view.findViewById(R.id.card_airtime);
         card_airtime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,21 +234,12 @@ public class HomeFragment extends Fragment {
 
         sliderDotspanel = view.findViewById(R.id.SliderDots);
 
-
-        boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            connected = true;
-        } else {
-            connected = false;
-        }
-
-
-        if(connected == true){
+        if (isNetworkAvailable() == true) {
             sendRequest();
         }
+
+
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -294,10 +310,11 @@ public class HomeFragment extends Fragment {
 
 
     public void sendRequest(){
-
+        viewDialog.showDialog();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Config.url + "image_slides.php", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                viewDialog.hideDialog();
 
                 for(int i = 0; i < response.length(); i++){
 
@@ -343,11 +360,58 @@ public class HomeFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
+                viewDialog.hideDialog();
             }
         });
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonArrayRequest);
 
     }
+
+
+    private void CheckVirtualBalance() {
+        String url_ = Config.url+"check_virtual_account.php?userid="+ sessionHandlerUser.getUserDetail().getUserid() + "&username=" + sessionHandlerUser.getUserDetail().getFullname();
+        url_ = url_.replaceAll(" ", "%20");
+        JSONObject request = new JSONObject();
+        JsonObjectRequest jsArrayRequest = new JsonObjectRequest
+                (Request.Method.POST, url_, request, new Response.Listener<JSONObject>() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getInt("status") == 0) {
+
+//                                txtbalance.setText("₦" + response.getString("balance"));
+
+                            } else {
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+//                        viewDialog.hideDialog();
+                    }
+                });
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsArrayRequest);
+    }
+
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+
+
+
 
 }

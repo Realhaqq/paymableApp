@@ -66,7 +66,7 @@ public class BankFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
     String accountno;
-    TextView account_name, account_no, balance;
+    TextView account_name, account_no, balance, t_account_no, t_account_name;
     ImageView wallet_plus;
     public BankFragment() {
         // Required empty public constructor
@@ -86,16 +86,17 @@ public class BankFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         account_name = view.findViewById(R.id.account_name);
         balance = view.findViewById(R.id.balance);
-//        account_no = view.findViewById(R.id.account_no);
-        wallet_plus = view.findViewById(R.id.wallet_plus);
-
-        wallet_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddWalletBalanceActivity.class);
-                startActivity(intent);
-            }
-        });
+        t_account_no = view.findViewById(R.id.t_account_no);
+        t_account_name = view.findViewById(R.id.t_account_name);
+//        wallet_plus = view.findViewById(R.id.wallet_plus);
+//
+//        wallet_plus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), AddWalletBalanceActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         CheckAccountInfo();
 
@@ -208,12 +209,14 @@ public class BankFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onRefresh() {
-        GetTransactions();
+//        GetTransactions();
+        CheckAccountInfo();
     }
 
 
 
     private void CheckBalance(String accountno) {
+        viewDialog.showDialog();
         String url_ = Config.url+"rubies/check_balance.php?accountno="+ accountno;
         JSONObject request = new JSONObject();
         JsonObjectRequest jsArrayRequest = new JsonObjectRequest
@@ -221,13 +224,14 @@ public class BankFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     @SuppressLint("ResourceAsColor")
                     @Override
                     public void onResponse(JSONObject response) {
+                        viewDialog.hideDialog();
 
                         try {
                             if (response.getInt("status") == 0) {
 
                                 balance.setText("₦" + response.getString("balance"));
 
-                                GetTransactions();
+//                                GetTransactions();
 
                             } else {
 
@@ -240,6 +244,7 @@ public class BankFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        viewDialog.hideDialog();
                     }
                 });
         MySingleton.getInstance(getContext()).addToRequestQueue(jsArrayRequest);
@@ -248,6 +253,7 @@ public class BankFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
     private void CheckAccountInfo() {
+        viewDialog.showDialog();
         String url_ = Config.url+"rubies/account_info.php?userid="+ sessionHandlerUser.getUserDetail().getUserid();
         JSONObject request = new JSONObject();
         JsonObjectRequest jsArrayRequest = new JsonObjectRequest
@@ -255,16 +261,16 @@ public class BankFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     @SuppressLint("ResourceAsColor")
                     @Override
                     public void onResponse(JSONObject response) {
+                        viewDialog.hideDialog();
 
                         try {
                             if (response.getInt("status") == 0) {
                                 account_name.setText(response.getString("account_name"));
                                 accountno = response.getString("account_no");
-
+                                t_account_no.setText(response.getString("account_no"));
+                                t_account_name.setText(response.getString("account_name"));
 
                                 CheckBalance(accountno);
-                            } else {
-
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -274,12 +280,22 @@ public class BankFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        viewDialog.hideDialog();
                     }
                 });
         MySingleton.getInstance(getContext()).addToRequestQueue(jsArrayRequest);
+//        jsonArrayRequest.cancel();
     }
 
 
 
 
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+////        if (requestQueue != null) {
+////            requestQueue.cancelAll(this);
+////        }
+//
+//    }
 }

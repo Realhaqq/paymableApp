@@ -2,7 +2,10 @@ package ng.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -68,8 +71,9 @@ public class MyAccountFragment extends Fragment {
         txtlogoname = view.findViewById(R.id.txtlogoname);
 
         txtbalance = view.findViewById(R.id.wallet_balance);
-
-        CheckBalance();
+        if (isNetworkAvailable() == true) {
+//            CheckBalance();
+        }
 
 
         card_save_card = view.findViewById(R.id.card_save_cards);
@@ -89,10 +93,10 @@ public class MyAccountFragment extends Fragment {
             }
         });
         lyt_policy = view.findViewById(R.id.lyt_policy);
-        lyt_help.setOnClickListener(new View.OnClickListener() {
+        lyt_policy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://paymable.ng/Privary_Policy"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://paymable.ng/Privacy_Policy"));
                 startActivity(browserIntent);
             }
         });
@@ -149,6 +153,16 @@ public class MyAccountFragment extends Fragment {
                 });
         MySingleton.getInstance(getContext()).addToRequestQueue(jsArrayRequest);
     }
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
 
 
 }

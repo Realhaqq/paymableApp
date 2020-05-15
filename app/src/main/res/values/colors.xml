@@ -26,17 +26,7 @@
     <color name="status_bar_color">#FFFFFF</color>
 
 
-    <color name="overlay_dark_10">#1A000000</color>
-    <color name="overlay_dark_30">#4D000000</color>
-    <color name="overlay_dark_40">#66000000</color>
-    <color name="overlay_dark_50">#80000000</color>
-
-    <color name="overlay_light_30">#4DFFFFFF</color>
     <color name="overlay_light_90">#E6FFFFFF</color>
 
 
-    <color name="tab_disable">#979797</color>
-    <color name="tab_enable">#FFFFFF</color>
-    <color name="tab_checked">#F3CD70</color>
-    <color name="tab_unchecked">#FFFFFF</color>
 </resources>

@@ -46,7 +46,7 @@ import ng.sessions.SessionHandlerUser;
 
 public class AddWalletBalanceActivity extends AppCompatActivity {
     TextView txt;
-    TextView one,two,three,four,five,six,seven,eight,nine,zero;
+    TextView onehundred,fivehundred,onethousand,fivethouasand,five,six,seven,eight,nine,zero;
     ImageView clear, add;
     EditText edtxt;
     String nos,number="";
@@ -74,18 +74,12 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
         viewDialog = new ViewDialog(this);
         sessionHandlerUser = new SessionHandlerUser(getApplicationContext());
 
-        one=findViewById(R.id.one);
-        two=findViewById(R.id.two);
-        three=findViewById(R.id.three);
-        four=findViewById(R.id.four);
-        five=findViewById(R.id.five);
-        six=findViewById(R.id.six);
-        seven=findViewById(R.id.seven);
-        eight=findViewById(R.id.eight);
-        nine=findViewById(R.id.nine);
-        zero=findViewById(R.id.zero);
-        clear=findViewById(R.id.clear);
-        edtxt=findViewById(R.id.edtxt);
+        onehundred=findViewById(R.id.hundred);
+        onethousand=findViewById(R.id.onethousand);
+        fivehundred=findViewById(R.id.fivehundress);
+        fivethouasand=findViewById(R.id.fivethousand);
+        edtxt = findViewById(R.id.edtxt);
+
 
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -100,14 +94,46 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
             }
         });
 
+
+        onethousand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtxt.setText("1000");
+            }
+        });
+        onehundred.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtxt.setText("100");
+            }
+        });
+        fivethouasand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtxt.setText("5000");
+            }
+        });
+        fivehundred.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtxt.setText("500");
+            }
+        });
+
+
         findViewById(R.id.btn_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String amount = edtxt.getText().toString();
+                int amount = Integer.parseInt(edtxt.getText().toString());
 
-                if(amount.isEmpty()){
+                String a = edtxt.getText().toString();
 
-                }else{
+                if(a.isEmpty()){
+
+                }else if(amount < 100){
+                    Toast.makeText(getApplicationContext(), "Minimum Wallet Fund Amount is 100 Naira", Toast.LENGTH_LONG).show();
+                }
+                else{
 //
                     showBottomSheetDialog();
                 }
@@ -149,7 +175,7 @@ public class AddWalletBalanceActivity extends AppCompatActivity {
     new_card.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(getApplicationContext(), WalletPaymetWeb.class);
+            Intent intent = new Intent(getApplicationContext(), PayStackMain.class);
             intent.putExtra("amount", edtxt.getText().toString());
             startActivity(intent);
             finish();

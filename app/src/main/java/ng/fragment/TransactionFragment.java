@@ -1,7 +1,10 @@
 package ng.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -97,7 +100,10 @@ public class TransactionFragment extends Fragment implements SwipeRefreshLayout.
         theaters_recycleview.setItemAnimator(new DefaultItemAnimator());
         GetTransactionsAdapter = new ArrayList<>();
 
-        GetTransactions();
+        if (isNetworkAvailable() == true) {
+            GetTransactions();
+        }
+
         theaters_recycleview.addOnItemTouchListener(new RecyclerTouchListener(getContext(), theaters_recycleview, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -192,4 +198,25 @@ public class TransactionFragment extends Fragment implements SwipeRefreshLayout.
     public void onRefresh() {
         GetTransactions();
     }
+
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        if (requestQueue != null) {
+            requestQueue.cancelAll(this);
+//        }
+
+    }
+
 }

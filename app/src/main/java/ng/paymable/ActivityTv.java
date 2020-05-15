@@ -312,17 +312,13 @@ public class ActivityTv extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(response);
 
                     if (jsonObject.getInt("status") == 0) {
-//                        orderid = jsonObject.getString("orderid");
                         type = jsonObject.getString("type");
                         ref = jsonObject.getString("ref");
-//                        data = jsonObject.getString("ddata");
-//                        amounttobepaid = Integer.parseInt(jsonObject.getString("amount"));
 
                         service_category_id = jsonObject.getString("service_category_id");
                         ref = jsonObject.getString("ref");
                         vname = jsonObject.getString("name");
                         vamount = String.valueOf(Integer.parseInt(jsonObject.getString("amount")));
-//                        Toast.makeText(getApplicationContext(), "message2" +  jsonObject.getString("amount"), Toast.LENGTH_LONG).show();
 
                         displayDialog(service_category_id, service, ref, Integer.parseInt(vamount), vname, type, ccardno);
                     } else if(jsonObject.getInt("status") == 1) {
